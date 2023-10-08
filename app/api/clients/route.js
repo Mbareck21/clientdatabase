@@ -50,7 +50,7 @@ export async function GET() {
 }
 
 export async function DELETE(request) {
-	const id = request.nextUrl.searchParams.get(id);
+	const id = request.nextUrl.searchParams.get('id');
 	await connectMongoDB();
 	await Client.findByIdAndDelete(id);
 	return NextResponse.json({ message: "Client deleted" }, { status: 200 });

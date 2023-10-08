@@ -1,6 +1,6 @@
-import dayjs from "dayjs";
 
-
+import EditButton from './EditButton';
+import RemoveClient from './RemoveClient';
 export default function getColumns() {
 	const columns = [
 		{
@@ -119,40 +119,12 @@ export default function getColumns() {
 			headerName: "Actions",
 			width: "100",
 			cellClassName: "actions",
-			getActions: (params) => {
-				const isInEditMode =
-					rowModesModel[params.id]?.mode === GridRowModes.Edit;
-				if (isInEditMode) {
-					return [
-						<GridActionsCellItem
-							icon={<SaveIcon />}
-							label="Save"
-							sx={{ color: "primary.main" }}
-							onClick={handleSaveClick(params.id)}
-						/>,
-						<GridActionsCellItem
-							icon={<CancelIcon />}
-							label="Cancel"
-							className="textPrimary"
-							onClick={handleCancelClick(params.id)}
-							color="inherit"
-						/>,
-					];
-				}
+			getActions: ({ id }) => {
 				return [
-					<GridActionsCellItem
-						icon={<EditIcon />}
-						label="Edit"
-						className="textPrimary"
-						onClick={handleEditClick(params.id)}
-						color="inherit"
-					/>,
-					<GridActionsCellItem
-						icon={<DeleteIcon />}
-						label="Delete"
-						onClick={handleDeleteClick(params.id)}
-						color="inherit"
-					/>,
+					
+					<EditButton id={id} />,
+					<RemoveClient id={id}/>
+				
 				];
 			},
 		},

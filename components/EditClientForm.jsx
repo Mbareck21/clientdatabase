@@ -1,7 +1,8 @@
+"use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import {
-	Form,
+	Box,
 	TextField,
 	Checkbox,
 	Select,
@@ -66,9 +67,9 @@ export default function EditClientForm({ id, client }) {
 				headers: {
 					"Content-type": "application/json",
 				},
-				body: JSON.stringify(newClient),
+				body: JSON.stringify({newClient}),
 			});
-			// console.log(JSON.stringify({ clientState }));
+			console.log(JSON.stringify( {newClient} ));
 			if (!res.ok) {
 				throw new Error("Failed to edit client information");
 			}
@@ -78,20 +79,21 @@ export default function EditClientForm({ id, client }) {
 		}
 	};
 	return (
-		<Form
+		<Box
+			component='form'
 			className="grid grid-cols-3 grid-rows-2 gap-1 "
 			onSubmit={handleSubmit}>
 			<TextField
 				name="principalApplicant"
 				label="Principal Applicant"
-				required
+				
 				value={principalApplicant}
 				onChange={(e) => setPrincipalApplicant(e.target.value)}
 			/>
 			<TextField
 				name="contact"
 				label="Contact"
-				required
+				
 				value={contact} // bind state value
 				onChange={(e) => setContact(e.target.value)} // update state on change
 			/>
@@ -99,14 +101,14 @@ export default function EditClientForm({ id, client }) {
 				name="caseSize"
 				label="Case Size"
 				type="number"
-				required
+				
 				value={caseSize} // bind state value
 				onChange={(e) => setCaseSize(e.target.value)} // update state on change
 			/>
 			<TextField
 				name="country"
 				label="Country"
-				required
+				
 				value={country} // bind state value
 				onChange={(e) => setCountry(e.target.value)} // update state on change
 			/>
@@ -120,7 +122,7 @@ export default function EditClientForm({ id, client }) {
 				name="applicationDate"
 				label="Application Date"
 				type="date"
-				required
+				
 				value={applicationDate} // bind state value
 				onChange={(e) => setApplicationDate(e.target.value)} // update state on change
 			/>
@@ -137,21 +139,21 @@ export default function EditClientForm({ id, client }) {
 			<TextField
 				name="receipt"
 				label="Receipt"
-				required
+				
 				value={receipt} // bind state value
 				onChange={(e) => setReceipt(e.target.value)} // update state on change
 			/>
 			<TextField
 				name="caseStatus"
 				label="Case Status"
-				required
+				
 				value={caseStatus} // bind state value
 				onChange={(e) => setCaseStatus(e.target.value)} // update state on change
 			/>
 			<TextField
 				name="lawyer"
 				label="Lawyer"
-				required
+				
 				value={lawyer} // bind state value
 				onChange={(e) => setLawyer(e.target.value)} // update state on change
 			/>
@@ -201,6 +203,6 @@ export default function EditClientForm({ id, client }) {
 			<Button type="submit" variant="contained" color="primary">
 				Submit
 			</Button>
-		</Form>
+		</Box>
 	);
 }

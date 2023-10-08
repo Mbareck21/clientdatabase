@@ -8,7 +8,7 @@ export async function PUT(req, {params}) {
     const { newClient } = await req.json()
  console.log('newClient:', newClient);   
  await connectMongoDB()
- await Client.findByIdAndUpdate(id, newClient)
+ await Client.findByIdAndUpdate(id)
  return NextResponse.json({message: 'Client Updated'},{status: 200})
 }
 
