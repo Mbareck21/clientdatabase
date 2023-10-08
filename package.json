@@ -12,12 +12,18 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@fontsource/roboto": "^5.0.8",
+    "@mui/icons-material": "^5.14.11",
     "@mui/material": "^5.14.11",
+    "@mui/x-data-grid": "^6.16.0",
+    "@mui/x-data-grid-generator": "^6.16.0",
+    "@mui/x-date-pickers": "^6.16.0",
+    "dayjs": "^1.11.10",
     "mongodb": "^6.1.0",
     "mongoose": "^7.5.3",
     "next": "latest",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "swr": "^2.2.4"
   },
   "devDependencies": {
     "autoprefixer": "latest",
