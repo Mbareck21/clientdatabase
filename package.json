@@ -13,6 +13,7 @@
     "@emotion/styled": "^11.11.0",
     "@fontsource/roboto": "^5.0.8",
     "@mui/icons-material": "^5.14.11",
+    "@mui/lab": "^5.0.0-alpha.147",
     "@mui/material": "^5.14.11",
     "@mui/x-data-grid": "^6.16.0",
     "@mui/x-data-grid-generator": "^6.16.0",
@@ -30,6 +31,7 @@
     "eslint": "latest",
     "eslint-config-next": "latest",
     "postcss": "latest",
+    "prettier": "3.0.3",
     "tailwindcss": "latest"
   }
 }
