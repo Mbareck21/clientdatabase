@@ -2,19 +2,9 @@
 
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import AddIcon from "@mui/icons-material/Add";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/DeleteOutlined";
-import SaveIcon from "@mui/icons-material/Save";
-import CancelIcon from "@mui/icons-material/Close";
-import {
-	GridRowModes,
-	DataGrid,
-	GridToolbarContainer,
-	GridActionsCellItem,
-	GridRowEditStopReasons,
-} from "@mui/x-data-grid";
+import Loading from './Loading'
+import { DataGrid } from "@mui/x-data-grid";
+
 import columns from './columns'
 // import { useState } from "react";
 
@@ -33,6 +23,7 @@ const getClients = async () => {
 }
 export default function ClientsList() { // remove the async keyword
 const [rows, setRows]= useState([])
+const [loading, setLoading]= useState(true)
 	 
 
 React.useEffect(() => {
@@ -54,14 +45,18 @@ const clientGetter = async () => {
   clients.map((c) => {
     return { ...c, id: c._id };
   });
-  setRows(clients);
+	setRows(clients);
+	setLoading(false)
 };
 const getRowId = (row) => {
   return row._id;
 };
 	
-	console.log(rows);
+// 	if (loading) {
+// 	return <Loading/>
+// }
 	return (
+		
 		<Box
 			sx={{
 				height: 500,
@@ -75,10 +70,12 @@ const getRowId = (row) => {
 			}}>
 			<DataGrid
 				rows={rows}
+				loading= {loading}
 				getRowId={getRowId}
 				columns={columns()}
 			
 			/>
-		</Box>
+			</Box>
+		
 	);
 }
