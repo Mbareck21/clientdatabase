@@ -13,7 +13,7 @@ export default function getColumns() {
 		{
 			field: "contact",
 			headerName: "Contact",
-			width: 150,
+			width: 100,
 			
 		},
 		{
@@ -26,59 +26,63 @@ export default function getColumns() {
 		{
 			field: "country",
 			headerName: "Country",
-			width: 150,
+			width: 100,
 			
 		},
 		{
 			field: "pendingCase",
 			headerName: "Pending Case",
 			type: "boolean",
-			width: 150,
-			
+			width: 100,
 		},
 		{
 			field: "applicationDate",
 			headerName: "Application Date",
 			type: "date",
-			width: 150,
+			width: 100,
 			
 			valueGetter: (params) => params.value && new Date(dayjs(params.value)),
 		},
 		{
 			field: "caseType",
 			headerName: "Case Type",
-			width: 150,
+			width: 120,
 			
 		},
 		{
 			field: "receipt",
 			headerName: "Receipt",
-			width: 150,
+			width: 100,
 			
 		},
 		{
 			field: "caseStatus",
 			headerName: "Case Status",
-			width: 150,
+			type: "text",
+			width: 100,
 			
 		},
 		{
 			field: "lawyer",
 			headerName: "Lawyer",
-			width: 150,
+			width: 100,
 			
 		},
 		{
 			field: "notes",
 			headerName: "Notes",
 			width: 200,
-			valueGetter: (params) => params.value && params.value[0].content
+			valueGetter: (params) => {
+				if (params.value) {
+				return	params.value.length > 1 ? params.value[params.value.length - 1].content : params.value.content;
+				}
+			},
 		},
 		{
 			field: "interviewDate",
 			headerName: "Interview Date",
 			type: "date",
-			width: 150,
+			width: 100,
 			
 			valueGetter: (params) => params.value && new Date(dayjs(params.value)),
 		},
@@ -86,7 +90,7 @@ export default function getColumns() {
 			field: "biometricsDate",
 			headerName: "Biometrics Date",
 			type: "date",
-			width: 150,
+			width: 100,
 			
 			valueGetter: (params) => params.value && new Date(dayjs(params.value)),
 		},
@@ -94,7 +98,7 @@ export default function getColumns() {
 			field: "approvalDate",
 			headerName: "Approval Date",
 			type: "date",
-			width: 150,
+			width: 100,
 			
 			valueGetter: (params) => params.value && new Date(dayjs(params.value)),
 		},
@@ -102,7 +106,7 @@ export default function getColumns() {
 			field: "denialDate",
 			headerName: "Denial Date",
 			type: "date",
-			width: 150,
+			width: 100,
 			
 			valueGetter: (params) => params.value && new Date(dayjs(params.value)),
 		},
@@ -110,7 +114,7 @@ export default function getColumns() {
 			field: "caseClosingDate",
 			headerName: "Case Closing Date",
 			type: "date",
-			width: 150,
+			width: 100,
 			
 			valueGetter: (params) => params.value && new Date(dayjs(params.value)),
 		},

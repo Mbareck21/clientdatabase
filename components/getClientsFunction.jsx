@@ -4,7 +4,7 @@ const getClients = async () => {
             cache: "no-store"
       })
         if (!re.ok) {
-            throw new Error('Failed to fetch Data!')
+            throw new Error('Failed to get Data!')
         }
         return res.json()
     } catch (error) {
