@@ -72,7 +72,7 @@ export default function getColumns() {
 			field: "notes",
 			headerName: "Notes",
 			width: 200,
-			
+			valueGetter: (params) => params.value && params.value[0].content
 		},
 		{
 			field: "interviewDate",
