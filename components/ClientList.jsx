@@ -1,12 +1,10 @@
 'use client';
 
 import React, { useState } from "react";
-import Box from "@mui/material/Box";
-import Loading from './Loading'
+import Paper from "@mui/material/Paper";
 import { DataGrid } from "@mui/x-data-grid";
 
 import columns from './columns'
-// import { useState } from "react";
 
 const getClients = async () => {
 	try {
@@ -21,7 +19,7 @@ const getClients = async () => {
 		console.log(error);
 	}
 }
-export default function ClientsList() { // remove the async keyword
+export default function ClientsList() { 
 const [rows, setRows]= useState([])
 const [loading, setLoading]= useState(true)
 	 
@@ -41,7 +39,7 @@ const clientGetter = async () => {
     clients = response;
   }
   console.log(clients);
-  // map over the clients array
+  // map over the clients array and assign Ids
   clients.map((c) => {
     return { ...c, id: c._id };
   });
@@ -52,22 +50,13 @@ const getRowId = (row) => {
   return row._id;
 };
 	
-// 	if (loading) {
-// 	return <Loading/>
-// }
+
 	return (
 		
-		<Box
+		<Paper elevation={4}
 			sx={{
 				height: 500,
-				width: "100%",
-				"& .actions": {
-					color: "text.secondary",
-				},
-				"& .textPrimary": {
-					color: "text.primary",
-				},
-			}}>
+				}}>
 			<DataGrid
 				rows={rows}
 				loading= {loading}
@@ -75,7 +64,7 @@ const getRowId = (row) => {
 				columns={columns()}
 			
 			/>
-			</Box>
+			</Paper>
 		
 	);
 }

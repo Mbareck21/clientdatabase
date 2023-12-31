@@ -4,10 +4,11 @@ import { useRouter } from "next/navigation";
 import {
   Box,
   TextField,
-  Checkbox,
+  InputLabel,
   Select,
   MenuItem,
   Button,
+  FormControl,
 } from "@mui/material";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -116,12 +117,19 @@ export default function EditClientForm({ id, client }) {
           value={country || ""} 
           onChange={(e) => setCountry(e.target.value)} 
         />
-        <Checkbox
+                <FormControl>
+          <InputLabel>Pending ?</InputLabel>
+           <Select
           name="pendingCase"
-          label="Pending Case"
-          checked={pendingCase === true ? true : false}
-          onChange={(e) => setPendingCase(e.target.checked)} 
-        />
+          label="Pending ?"
+          value={pendingCase} 
+          onChange={(e) => setPendingCase(e.target.value)}
+          >
+          <MenuItem value="">Select</MenuItem>
+          <MenuItem value="yes">Yes</MenuItem>
+          <MenuItem value="no">No</MenuItem>
+        </Select>
+        </FormControl>
         <DatePicker
           label="Application Date"
           type="date"
