@@ -1,16 +1,17 @@
 "use client";
 import React, { useState } from "react";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from "dayjs";
 import { useRouter } from "next/navigation";
-import {
-	Form,
-	TextField,
-	Checkbox,
-	Select,
-	MenuItem,
-	Button,
-	Box,
-} from "@mui/material";
+import TextField from '@mui/material/TextField';
+import Checkbox from '@mui/material/Checkbox'; 
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 
 export default function AddClientForm() {
 	const [principalApplicant, setPrincipalApplicant] = useState("");
@@ -30,7 +31,6 @@ export default function AddClientForm() {
 	const [denialDate, setDenialDate] = useState("");
 	const [caseClosingDate, setCaseClosingDate] = useState("");
 
-	// console.log(client);
 	const router = useRouter();
 	const handleSubmit = async (event) => {
 		event.preventDefault();
@@ -70,10 +70,16 @@ export default function AddClientForm() {
 			console.log(error);
 		}
 	};
+	const handleCancel = (e) => {
+		e.preventDefault();	
+    	router.push("/");
+  }
 	return (
-		<Box
+		<LocalizationProvider dateAdapter={AdapterDayjs}>
+
+			<Box sx={{ p: 2 ,border: '1px dashed grey'}}
 			component="form"
-			className="grid grid-cols-3 grid-rows-2 gap-1 "
+			
 			onSubmit={handleSubmit}>
 			<TextField
 				name="principalApplicant"
@@ -110,42 +116,38 @@ export default function AddClientForm() {
 				value={pendingCase} // bind state value
 				onChange={(e) => setPendingCase(e.target.checked)} // update state on change
 			/>
-			<TextField
-				name="applicationDate"
-				label="Application Date"
-				type="date"
-				required
-				value={applicationDate} // bind state value
-				onChange={(e) => setApplicationDate(e.target.value)} // update state on change
-			/>
+			 <DatePicker
+          label="Application Date"
+          type="date"
+          value={applicationDate} 
+          onChange={(newValue) => setApplicationDate(newValue)} 
+        />
 			<Select
-				name="caseType"
-				label="Case Type"
-				value={caseType} // bind state value
-				onChange={(e) => setCaseType(e.target.value)}>
-				<MenuItem value="">Select a case type</MenuItem>
-				<MenuItem value="Asylum">Asylum</MenuItem>
-				<MenuItem value="Green Card">Green Card</MenuItem>
-				<MenuItem value="EAD">EAD</MenuItem>
-			</Select>
+          name="caseType"
+          label="Case Type"
+          value={caseType || ""} 
+          onChange={(e) => setCaseType(e.target.value)}
+        >
+          <MenuItem value="">Select a case type</MenuItem>
+          <MenuItem value="Asylum">Asylum</MenuItem>
+          <MenuItem value="Green Card">Green Card</MenuItem>
+          <MenuItem value="EAD">EAD</MenuItem>
+        </Select>
 			<TextField
 				name="receipt"
 				label="Receipt"
-				required
 				value={receipt} // bind state value
 				onChange={(e) => setReceipt(e.target.value)} // update state on change
 			/>
 			<TextField
 				name="caseStatus"
 				label="Case Status"
-				required
 				value={caseStatus} // bind state value
 				onChange={(e) => setCaseStatus(e.target.value)} // update state on change
 			/>
 			<TextField
 				name="lawyer"
 				label="Lawyer"
-				required
 				value={lawyer} // bind state value
 				onChange={(e) => setLawyer(e.target.value)} // update state on change
 			/>
@@ -153,50 +155,47 @@ export default function AddClientForm() {
 				name="notes"
 				label="Notes"
 				multiline
-				rows={4}
+				
 				value={notes.content} // bind state value
 				onChange={(e) =>
-					setNotes({ content: e.target.value, date: new Date() })
+					setNotes({ content: e.target.value,  date: e.target.value ? new Date() : notes.date})
 				} // update state on change
 			/>
-			<TextField
-				name="interviewDate"
-				label="Interview Date"
-				type="date"
-				value={interviewDate} // bind state value
-				onChange={(e) => setInterviewDate(e.target.value)} // update state on change
-			/>
-			<TextField
-				name="biometricsDate"
-				label="Biometrics Date"
-				type="date"
-				value={biometricsDate} // bind state value
-				onChange={(e) => setBiometricsDate(e.target.value)} // update state on change
-			/>
-			<TextField
-				name="approvalDate"
-				label="Approval Date"
-				type="date"
-				value={approvalDate} // bind state value
-				onChange={(e) => setApprovalDate(e.target.value)} // update state on change
-			/>
-			<TextField
-				name="denialDate"
-				label="Denial Date"
-				type="date"
-				value={denialDate} // bind state value
-				onChange={(e) => setDenialDate(e.target.value)} // update state on change
-			/>
-			<TextField
-				name="caseClosingDate"
-				label="Case Closing Date"
-				type="date"
-				value={caseClosingDate} // bind state value
-				onChange={(e) => setCaseClosingDate(e.target.value)} // update state on change
-			/>
+			<DatePicker
+          label="Interview Date"
+          type="date"
+          value={interviewDate} 
+          onChange={(newValue) => setInterviewDate(newValue)} 
+        />
+			<DatePicker
+          label="Biometrics Date"
+          type="date"
+          value={biometricsDate} 
+          onChange={(newValue) => setBiometricsDate(newValue)} 
+        />
+			 <DatePicker
+          label="Approval Date"
+          type="date"
+          value={approvalDate || ""} 
+          onChange={(newValue) => setApprovalDate(newValue)} 
+        />
+        <DatePicker
+          label="denialDate"
+          value={denialDate || ""}
+          onChange={(newValue) => setDenialDate(newValue)}
+        />
+        <DatePicker
+          label="caseClosingDate"
+          value={caseClosingDate || ""}
+          onChange={(newValue) => setCaseClosingDate(newValue)}
+        />
 			<Button type="submit" variant="contained" color="primary">
 				Submit
 			</Button>
+			<Button variant="contained" color="secondary" onClick={handleCancel}>
+        Cancel
+      </Button>
 		</Box>
+		</LocalizationProvider>
 	);
 }
