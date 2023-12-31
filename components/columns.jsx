@@ -41,7 +41,7 @@ export default function getColumns() {
 			type: "date",
 			width: 100,
 			
-			valueGetter: (params) => params.value && new Date(dayjs(params.value)),
+			valueGetter: (params) => params.value && new Date(params.value),
 		},
 		{
 			field: "caseType",
@@ -84,7 +84,7 @@ export default function getColumns() {
 			type: "date",
 			width: 100,
 			
-			valueGetter: (params) => params.value && new Date(dayjs(params.value)),
+			valueGetter: (params) => params.value && new Date(params.value),
 		},
 		{
 			field: "biometricsDate",
@@ -92,7 +92,7 @@ export default function getColumns() {
 			type: "date",
 			width: 100,
 			
-			valueGetter: (params) => params.value && new Date(dayjs(params.value)),
+			valueGetter: (params) => params.value && new Date(params.value),
 		},
 		{
 			field: "approvalDate",
@@ -100,7 +100,7 @@ export default function getColumns() {
 			type: "date",
 			width: 100,
 			
-			valueGetter: (params) => params.value && new Date(dayjs(params.value)),
+			valueGetter: (params) => params.value && new Date(params.value),
 		},
 		{
 			field: "denialDate",
@@ -108,7 +108,7 @@ export default function getColumns() {
 			type: "date",
 			width: 100,
 			
-			valueGetter: (params) => params.value && new Date(dayjs(params.value)),
+			valueGetter: (params) => params.value && new Date(params.value),
 		},
 		{
 			field: "caseClosingDate",
@@ -116,7 +116,7 @@ export default function getColumns() {
 			type: "date",
 			width: 100,
 			
-			valueGetter: (params) => params.value && new Date(dayjs(params.value)),
+			valueGetter: (params) => params.value && new Date(params.value),
 		},
 		{
 			field: "actions",
