@@ -74,7 +74,7 @@ export default function getColumns() {
 			width: 200,
 			valueGetter: (params) => {
 				if (params.value) {
-				return	params.value.length > 1 ? params.value[params.value.length - 1].content : params.value.content;
+				return	params.value.length >= 1 ? params.value[params.value.length - 1].content :null;
 				}
 			},
 		},
