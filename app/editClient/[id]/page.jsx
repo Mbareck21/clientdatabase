@@ -34,7 +34,6 @@ import EditClientForm from "@/components/EditClientForm";
       denialDate,
       caseClosingDate,
     };
-    newClient.notes = [...client.notes, notes];
     try {
       const res = await fetch(`http://localhost:3000/api/clients/${id}`, {
         method: "PUT",
