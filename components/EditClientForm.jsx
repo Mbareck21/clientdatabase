@@ -1,69 +1,41 @@
 "use client";
+
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import {
-  Box,
-  TextField,
-  InputLabel,
-  Select,
-  MenuItem,
-  Button,
-  FormControl,
-} from "@mui/material";
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select'; 
+import MenuItem from '@mui/material/MenuItem';
+import Button from '@mui/material/Button';
+import FormControl from '@mui/material/FormControl';
+
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from "dayjs";
-export default function EditClientForm({ id, client }) {
-  const [principalApplicant, setPrincipalApplicant] = useState(
-    client.principalApplicant
-  );
-  const [contact, setContact] = useState(client.contact );
-  const [caseSize, setCaseSize] = useState(client.caseSize );
-  const [country, setCountry] = useState(client.country );
-  const [pendingCase, setPendingCase] = useState(client.pendingCase || false) ;
-  const [applicationDate, setApplicationDate] = useState(
-    dayjs(client.applicationDate) 
-  );
-  const [caseType, setCaseType] = useState(client.caseType );
-  const [receipt, setReceipt] = useState(client.receipt );
-  const [caseStatus, setCaseStatus] = useState(client.caseStatus );
-  const [lawyer, setLawyer] = useState(client.lawyer );
-  const [notes, setNotes] = useState({ content: null, date: null });
-  const [interviewDate, setInterviewDate] = useState(
-    dayjs(client.interviewDate) 
-  );
-  const [biometricsDate, setBiometricsDate] = useState(
-   dayjs( client.biometricsDate) 
-  );
-  const [approvalDate, setApprovalDate] = useState(dayjs(client.approvalDate) );
-  const [denialDate, setDenialDate] = useState(dayjs(client.denialDate ));
-  const [caseClosingDate, setCaseClosingDate] = useState(
-    dayjs(client.caseClosingDate )
-  );
 
+
+const caseTypes = ["Green Card", "Asylum", "EAD", "EAD Renewal", "CAM", "Citizenship Cert", "P-3", "I-730", "CAM-Reparole"];
+
+export default function EditClientForm({ id, client }) {
+ 
+  const [formData, setFormData] = useState({ ...client });
+  const [newNote, setNewNote] = useState({content: "", date: "" });
+ 
+  const handleNewNoteChange = (e) => { 
+    setNewNote({content:e.target.value && e.target.value,  date: e.target.value && new Date()});
+  }
+  
   const router = useRouter();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const newClient = {
-      principalApplicant,
-      contact,
-      caseSize,
-      country,
-      pendingCase,
-      applicationDate,
-      caseType,
-      receipt,
-      caseStatus,
-      lawyer,
-      notes,
-      interviewDate,
-      biometricsDate,
-      approvalDate,
-      denialDate,
-      caseClosingDate,
+      ...formData,
+      
     };
-    newClient.notes = notes.content !== null ? [...client.notes,  notes]:client.notes;
+    newClient.notes = newNote.content !== "" ? [...formData.notes,  newNote]:[...formData.notes];
     try {
       const res = await fetch(`http://localhost:3000/api/clients/${id}`, {
         method: "PUT",
@@ -72,7 +44,7 @@ export default function EditClientForm({ id, client }) {
         },
         body: JSON.stringify(newClient),
       });
-      console.log(JSON.stringify(newClient));
+      console.log(newClient);
       if (!res.ok) {
         throw new Error("Failed to edit client information");
       }
@@ -88,124 +60,173 @@ export default function EditClientForm({ id, client }) {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Box
+        sx={{ p: 2 ,border: '1px dashed grey', '& .MuiTextField-root': { m: 1, width: '25ch' },}}
       component="form"
-      // className="grid grid-cols-3 grid-rows-2 gap-1 "
+      
       onSubmit={handleSubmit}
     >
+        
         <TextField
-          name="principalApplicant"
-          label="Principal Applicant"
-          value={principalApplicant || ""}
-          onChange={(e) => setPrincipalApplicant(e.target.value)}
-        />
-        <TextField
-          name="contact"
-          label="Contact"
-          value={contact || ""} 
-          onChange={(e) => setContact(e.target.value)} 
-        />
-        <TextField
-          name="caseSize"
-          label="Case Size"
-          type="number"
-          value={caseSize || ""} 
-          onChange={(e) => setCaseSize(e.target.value)} 
-        />
-        <TextField
-          name="country"
-          label="Country"
-          value={country || ""} 
-          onChange={(e) => setCountry(e.target.value)} 
-        />
-                <FormControl>
-          <InputLabel>Pending ?</InputLabel>
-           <Select
-          name="pendingCase"
-          label="Pending ?"
-          value={pendingCase} 
-          onChange={(e) => setPendingCase(e.target.value)}
-          >
-          <MenuItem value="">Select</MenuItem>
-          <MenuItem value="yes">Yes</MenuItem>
-          <MenuItem value="no">No</MenuItem>
-        </Select>
-        </FormControl>
+				name="principalApplicant"
+				label="Principal Applicant"
+				required
+				value={formData.principalApplicant}
+					onChange={(e) => setFormData({
+						...formData,
+						principalApplicant:e.target.value
+					})}
+			/>
+			<TextField
+				name="contact"
+				label="Contact"
+				required
+				value={formData.contact} // bind state value
+				onChange={(e) => setFormData({
+						...formData,
+						contact:e.target.value
+					})} // update state on change
+			/>
+			<TextField
+				name="caseSize"
+				label="Case Size"
+				type="number"
+				required
+				value={formData.caseSize} // bind state value
+				onChange={(e) => setFormData({
+						...formData,
+						caseSize:e.target.value
+					})} // update state on change
+			/>
+			<TextField
+				name="country"
+				label="Country"
+				required
+				value={formData.country} // bind state value
+				onChange={(e) => setFormData({
+						...formData,
+						country:e.target.value
+					})}// update state on change
+			/>
+			
+				<TextField
+				select
+					label="Pending ?"
+					name="pendingCase"
+					type="boolean"
+					
+					value={formData.pendingCase === false ? "no": "yes"} 
+					onChange={(e) => setFormData({
+						...formData,
+						pendingCase:e.target.value
+					})}
+				>
+					<MenuItem value="yes">Yes</MenuItem>
+					<MenuItem value="no">No</MenuItem>
+				</TextField>
+
         <DatePicker
           label="Application Date"
           type="date"
-          value={applicationDate || ""} 
-          onChange={(newValue) => setApplicationDate(newValue)} 
-        />
-        <Select
-          name="caseType"
-          label="Case Type"
-          value={caseType || ""} 
-          onChange={(e) => setCaseType(e.target.value)}
-        >
-          <MenuItem value="">Select a case type</MenuItem>
-          <MenuItem value="Asylum">Asylum</MenuItem>
-          <MenuItem value="Green Card">Green Card</MenuItem>
-          <MenuItem value="EAD">EAD</MenuItem>
-        </Select>
-        <TextField
-          name="receipt"
-          label="Receipt"
-          value={receipt || ""} 
-          onChange={(e) => setReceipt(e.target.value)} 
+          value={dayjs(formData.applicationDate)} 
+          onChange={(newValue) => setFormData({
+						...formData,
+						applicationDate:newValue
+		  })}
         />
         <TextField
-          name="caseStatus"
-          label="Case Status"
-          value={caseStatus || ""} 
-          onChange={(e) => setCaseStatus(e.target.value)} 
-        />
+				select
+					label="Case Type"
+					name="caseType"
+					required
+					value={formData. caseType}
+					onChange={(e) => setFormData({
+						...formData,
+						caseType:e.target.value
+					})}
+				>
+					{caseTypes.map((option) => (
+            <MenuItem key={option} value={option}>
+              {option}
+            </MenuItem>
+          ))}
+          </TextField>
+				<TextField
+				name="receipt"
+				label="Receipt"
+				value={formData.receipt} // bind state value
+				onChange={(e) => setFormData({
+						...formData,
+						receipt:e.target.value
+					})} // update state on change
+			/>
         <TextField
-          name="lawyer"
-          label="Lawyer"
-          value={lawyer || ""} 
-          onChange={(e) => setLawyer(e.target.value)} 
-        />
+				name="caseStatus"
+				label="Case Status"
+				value={formData.caseStatus} // bind state value
+				onChange={(e) => setFormData({
+						...formData,
+						caseStatus:e.target.value
+					})} // update state on change
+			/>
+        <TextField
+				name="lawyer"
+				label="Lawyer"
+				value={formData.lawyer} // bind state value
+				onChange={(e) => setFormData({
+						...formData,
+						lawyer:e.target.value
+					})} // update state on change
+			/>
         <TextField
           name="notes"
           label="Notes"
-          multiline
-          rows={1}
-          value={notes.content || "" } 
-          onChange={(e) => setNotes({
-  ...notes,
-  // If the value is null, use an empty string as the content
-  content: e.target.value || "",
-  // If the value is null, use the current date as the date
-  date: e.target.value ? new Date() : notes.date
-})} 
+          value={newNote.content}
+          onChange={handleNewNoteChange}
+         
         />
+
         <DatePicker
           label="Interview Date"
           type="date"
-          value={interviewDate || ""} 
-          onChange={(newValue) => setInterviewDate(newValue)} 
+          value={dayjs(formData.interviewDate)} 
+          onChange={(newValue) => setFormData({
+						...formData,
+						interviewDate:newValue
+		  })} 
         />
-        <DatePicker
+			<DatePicker
           label="Biometrics Date"
           type="date"
-          value={biometricsDate || ""} 
-          onChange={(newValue) => setBiometricsDate(newValue)} 
+          value={dayjs(formData.biometricsDate)} 
+          onChange={(newValue) => setFormData({
+						...formData,
+						biometricsDate:newValue
+		  })}  
         />
-        <DatePicker
+			 <DatePicker
           label="Approval Date"
           type="date"
-          value={approvalDate || ""} 
-          onChange={(newValue) => setApprovalDate(newValue)} 
+          value={dayjs(formData.approvalDate)} 
+          onChange={(newValue) => setFormData({
+						...formData,
+						approvalDate:newValue
+		  })}
         />
         <DatePicker
           label="denialDate"
-          value={denialDate || ""}
-          onChange={(newValue) => setDenialDate(newValue)}
+          value={dayjs(formData.denialDate)}
+          onChange={(newValue) => setFormData({
+						...formData,
+						denialDate:newValue
+		  })}
         />
         <DatePicker
           label="caseClosingDate"
-          value={caseClosingDate || ""}
-          onChange={(newValue) => setCaseClosingDate(newValue)}
+          value={dayjs(formData.caseClosingDate)}
+           onChange={(newValue) => setFormData({
+						...formData,
+						caseClosingDate:newValue
+		  })}
         />
 		  
       <Button type="submit" variant="contained" color="primary" onClick={handleSubmit}>

@@ -1,7 +1,10 @@
 'use client';
 import { useRouter } from 'next/navigation'
 import ClientsList from "@/components/ClientList";
-import {Button, Box, Stack, Grid} from '@mui/material/';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 export default function Home() {
 	const router = useRouter();
 	
