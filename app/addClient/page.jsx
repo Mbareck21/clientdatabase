@@ -61,7 +61,7 @@ const newClient = {...formData, notes: formData.notes.content !== "" ? [formData
 	};
 	const handleCancel = (e) => {
 		e.preventDefault();	
-    	router.push("/");
+		router.push("/dashboard");
   }
 	return (
 		<LocalizationProvider dateAdapter={AdapterDayjs}>
