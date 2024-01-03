@@ -70,7 +70,10 @@ const clientSchema = new Schema({
 		type: Date,
 		required: false,
 	},
-});
+},
+	{
+		timestamps: true
+	});
 
 // create a model for the client data
 const Client = mongoose.models.Client || mongoose.model("Client", clientSchema);
