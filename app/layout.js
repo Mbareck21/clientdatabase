@@ -1,4 +1,3 @@
-import { AuthProvider } from "./Providers";
 
 export const metadata = {
 	title: "Create Next App",
@@ -8,11 +7,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
 	return (
 		<html lang="en">
-			<body>
-				<AuthProvider>
-					{children}
-				</AuthProvider>
-			</body>
+			<body>{children}</body>
 		</html>
 	);
 }
