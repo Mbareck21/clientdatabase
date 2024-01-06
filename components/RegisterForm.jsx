@@ -16,7 +16,22 @@ function RegisterForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(formData);
+        const { email } = formData;
         try {
+            const adminExistsRes = await fetch('api/adminExists', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ email }),
+            })
+            const { admin } = await adminExistsRes.json();
+            if (admin) {
+                setError("Admin already exists")
+                return;
+            }
+
+
             const res = await fetch("api/register", {
                 method: "POST",
                 headers: {
@@ -27,6 +42,7 @@ function RegisterForm() {
             if (res.ok) {
                 const form = e.target
                 form.reset();
+                router.push("/login");
             } else {
                 throw new Error("Failed to register new admin");
             }
