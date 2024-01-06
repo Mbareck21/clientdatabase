@@ -15,7 +15,7 @@ export default function Home() {
 	return (
 		<Box sx={{ flexGrow: 1 }}>
 			<Typography variant="h5">Home Page</Typography>
-			<Register />
+
 		</Box>
 	);
 }
