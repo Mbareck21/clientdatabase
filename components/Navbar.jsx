@@ -13,9 +13,7 @@ export default function Navbar() {
                 <Link href="/register" passHref>
                     <Button color="inherit">Register</Button>
                 </Link>
-                <Link href="/login" passHref>
-                    <Button color="inherit">Login</Button>
-                </Link>
+
                 <Link href="/dashboard" passHref>
                     <Button color="inherit">Dashboard</Button>
                 </Link>

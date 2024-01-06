@@ -3,6 +3,7 @@ import connectMongoDB from "@/lib/mongodb";
 import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server"
 
+
 export async function POST(req) {
     try {
         const { formData } = await req.json()
