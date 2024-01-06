@@ -8,7 +8,7 @@ import columns from './columns'
 
 const getClients = async () => {
 	try {
-		const res = await fetch("http://localhost:3000/api/clients", {
+		const res = await fetch("/api/clients", {
 			cache: "no-store"
 		})
 		if (!res.ok) {
