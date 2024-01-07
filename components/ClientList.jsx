@@ -5,6 +5,7 @@ import Paper from "@mui/material/Paper";
 import { DataGrid } from "@mui/x-data-grid";
 
 import columns from './columns'
+import { Box } from "@mui/material";
 
 const getClients = async () => {
 	try {
@@ -38,7 +39,7 @@ const clientGetter = async () => {
     // assign the clients property to the clients variable
     clients = response;
   }
-  console.log(clients);
+	//   console.log(clients);
   // map over the clients array and assign Ids
   clients.map((c) => {
     return { ...c, id: c._id };
@@ -57,6 +58,7 @@ const getRowId = (row) => {
 			sx={{
 				height: 500,
 				}}>
+
 			<DataGrid
 				rows={rows}
 				loading= {loading}

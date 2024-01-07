@@ -6,13 +6,15 @@ import { useRouter } from "next/navigation";
 function RegisterForm() {
     // state for the form values
     const [formData, setFormData] = useState({
-        firstName: "",
-        lastName: "",
+        name: "",
         email: "",
         password: "",
     });
+
     const [error, setError] = useState(null);
+
     const router = useRouter();
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(formData);
@@ -40,8 +42,6 @@ function RegisterForm() {
                 body: JSON.stringify({ formData }),
             });
             if (res.ok) {
-                const form = e.target
-                form.reset();
                 router.push("/login");
             } else {
                 throw new Error("Failed to register new admin");
@@ -64,24 +64,13 @@ function RegisterForm() {
                 Register
             </Typography>
             <Box component='form' onSubmit={handleSubmit}>
-                <TextField
-                    label="First Name"
-                    name="firstName"
-                    type="text"
-                    value={formData.firstName}
-                    onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                    fullWidth
-                    required
-                    margin="normal"
 
-
-                />
                 <TextField
-                    label="Last Name"
-                    name="lastName"
+                    label="Name"
+                    name="name"
                     type="text"
-                    value={formData.lastName}
-                    onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     fullWidth
                     margin="normal"
                     required
