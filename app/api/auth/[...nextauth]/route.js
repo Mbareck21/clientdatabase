@@ -8,7 +8,7 @@ import bcrypt from 'bcryptjs';
 export const authOptions = {
     providers: [
         CredentialsProvider({
-            name: "Credentials",
+            firstName: "Credentials",
             credentials: {},
             async authorize(credentials) {
                 const { email, password, } = credentials;
@@ -28,6 +28,8 @@ export const authOptions = {
     ],
     session: {
         strategy: "jwt",
+        
+        
 
     },
     secret: process.env.NEXTAUTH_SECRET,
