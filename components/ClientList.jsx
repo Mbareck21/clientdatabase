@@ -5,7 +5,7 @@ import Paper from "@mui/material/Paper";
 import { DataGrid } from "@mui/x-data-grid";
 
 import columns from './columns'
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 
 const getClients = async () => {
 	try {
@@ -58,7 +58,7 @@ const getRowId = (row) => {
 			sx={{
 				height: 500,
 				}}>
-
+					<Button variant="contained" color="success"	 href="/addClient" >Add Client</Button>
 			<DataGrid
 				rows={rows}
 				loading= {loading}
