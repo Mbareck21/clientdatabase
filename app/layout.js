@@ -1,6 +1,11 @@
 
 import Navbar from "../components/Navbar";
 import { AuthProvider } from "./Providers";
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+
 
 export const metadata = {
 	title: "Clients Database",
