@@ -2,12 +2,18 @@
 import dayjs from 'dayjs';
 import EditButton from './EditButton';
 import RemoveClient from './RemoveClient';
+import clsx from 'clsx';
 export default function getColumns() {
+	const caseTypes = ["Green Card", "Asylum", "EAD", "EAD Renewal", "CAM", "Citizenship Cert", "P-3", "I-730", "CAM-Reparole"];
+
+
+
 	const columns = [
 		{
 			field: "principalApplicant",
 			headerName: "Principal Applicant",
 			width: 200,
+			cellClassName: 'super-app-theme--cell',
 			
 		},
 		{
@@ -47,7 +53,25 @@ export default function getColumns() {
 			field: "caseType",
 			headerName: "Case Type",
 			width: 120,
-			
+			cellClassName: (params) => {
+				if (params.value == null) {
+					return '';
+				}
+
+				return clsx('super-app', {
+					'gc': params.value === 'Green Card',
+					'as': params.value === 'Asylum',
+					'ad': params.value === 'EAD',
+					'adr': params.value === 'EAD Renewal',
+					'ca': params.value === 'CAM',
+					'cc': params.value === 'Citizenship Cert',
+					'c': params.value === 'Citizenship',
+					'p': params.value === 'P-3',
+					'i': params.value === 'I-730',
+					'car': params.value === 'CAM-Reparole',
+				})
+
+			},
 		},
 		{
 			field: "receipt",
