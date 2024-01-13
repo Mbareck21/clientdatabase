@@ -3,12 +3,8 @@
 import React, { useState } from "react";
 import Paper from "@mui/material/Paper";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-
 import columns from './columns'
-
-// import { Box } from "@mui/material";
 import CustomNoRowsOverlay from "./CustomNoRowsOverlay";
-
 import { Box, Button } from "@mui/material";
 
 
@@ -25,6 +21,8 @@ const getClients = async () => {
 		console.log(error);
 	}
 }
+
+
 export default function ClientsList() {
 
 
@@ -104,10 +102,10 @@ export default function ClientsList() {
 				'& .super-app.car': {
 					backgroundColor: 'rgba(157, 118, 255, 0.49)',
 					color: '#1a3e72'
-				} dashboard
+				}
 			}}>
-}}>
-			<Button variant="contained" color="success"	 href="/addClient" >Add Client</Button>
+
+			{/* <Button variant="contained" color="success" href="/addClient" >Add Client</Button> */}
 			<DataGrid
 				autoHeight
 				sx={{ '--DataGrid-overlayHeight': '300px' }}
