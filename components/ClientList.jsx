@@ -5,7 +5,8 @@ import Paper from "@mui/material/Paper";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 
 import columns from './columns'
-import { Box } from "@mui/material";
+// import { Box } from "@mui/material";
+import CustomNoRowsOverlay from "./CustomNoRowsOverlay";
 
 const getClients = async () => {
 	try {
@@ -20,39 +21,39 @@ const getClients = async () => {
 		console.log(error);
 	}
 }
-export default function ClientsList() { 
-const [rows, setRows]= useState([])
-const [loading, setLoading]= useState(true)
-	 
+export default function ClientsList() {
 
-React.useEffect(() => {
-  clientGetter(); // call the clientGetter function
-}, []); // pass an empty dependency array to run only once
+
+	const [rows, setRows] = useState([])
+
+	React.useEffect(() => {
+		clientGetter();
+	}, []);
 
 	const clientGetter = async () => {
 		const response = await getClients();
 		let clients = [];
 		if (response) {
-    clients = response;
-  }
+			clients = response;
+		}
 
-  clients.map((c) => {
-    return { ...c, id: c._id };
-  });
-	setRows(clients);
-	setLoading(false)
-};
-const getRowId = (row) => {
-  return row._id;
-};
-	
+		clients.map((c) => {
+			return { ...c, id: c._id };
+		});
+		setRows(clients);
+	};
+
+	const getRowId = (row) => {
+		return row._id;
+	};
+
 
 	return (
-		
+
 		<Paper elevation={4}
 
 			sx={{
-				height: '100%',
+				height: 'auto',
 				color: '#1a3e72',
 
 				'& .super-app-theme--cell': {
@@ -101,22 +102,37 @@ const getRowId = (row) => {
 					color: '#1a3e72'
 				}
 
-				}}>
+			}}>
 
 			<DataGrid
+				autoHeight
+				sx={{ '--DataGrid-overlayHeight': '300px' }}
 				rows={rows}
-				loading= {loading}
+				// loading= {loading}
 				getRowId={getRowId}
 				columns={columns()}
-				slots={{ toolbar: GridToolbar }}
+				slots={{
+
+					toolbar: GridToolbar,
+					noRowsOverlay: CustomNoRowsOverlay
+				}}
 				slotProps={{
 					toolbar: {
 						showQuickFilter: true,
 					},
 				}}
-			
+				initialState={{
+					pagination: {
+						paginationModel: {
+							pageSize: 50,
+						},
+					},
+				}}
+				pageSizeOptions={[50]}
+				disableRowSelectionOnClick
+
 			/>
-			</Paper>
-		
+		</Paper>
+
 	);
 }
