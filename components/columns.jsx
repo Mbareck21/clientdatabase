@@ -1,10 +1,30 @@
-
-import dayjs from 'dayjs';
+import * as React from 'react';
 import EditButton from './EditButton';
 import RemoveClient from './RemoveClient';
 import clsx from 'clsx';
+import WarningIcon from '@mui/icons-material/Warning';
+import DoneAllIcon from '@mui/icons-material/DoneAll';
+import PendingIcon from '@mui/icons-material/Pending';
+import FolderOpenIcon from '@mui/icons-material/FolderOpen';
+import Chip from '@mui/material/Chip';
+
 export default function getColumns() {
 	const caseTypes = ["Green Card", "Asylum", "EAD", "EAD Renewal", "CAM", "Citizenship Cert", "P-3", "I-730", "CAM-Reparole"];
+	const helperFunction = (status) => {
+		switch (status) {
+			case "Denied":
+				return <WarningIcon fontSize="small" color="danger" />
+			case "Approved":
+				return <DoneAllIcon fontSize="small" color="success" />
+			case "Pending":
+				return <PendingIcon fontSize="small" color="warning" />
+			case "Applied":
+				return <FolderOpenIcon fontSize="small" color="info" />
+			default:
+				return <PendingIcon fontSize="small" color="info" />
+		}
+
+	}
 
 
 
@@ -83,8 +103,21 @@ export default function getColumns() {
 			field: "caseStatus",
 			headerName: "Case Status",
 			type: "text",
-			width: 100,
-			
+			width: 120,
+
+			renderCell: (params) => {
+				let color = 'default';
+
+				if (params.value === 'Approved') {
+					color = 'success';
+				} else if (params.value === 'Denied') {
+					color = 'error';
+				} else if (params.value === 'Applied') {
+					color = 'info';
+				} 
+
+				return <Chip icon={helperFunction(params.value)} label={params.value} color={color} sx={{ width: 100 }} />
+			}
 		},
 		{
 			field: "lawyer",

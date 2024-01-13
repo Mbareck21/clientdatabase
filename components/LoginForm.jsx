@@ -44,7 +44,7 @@ function LoginForm() {
             <Typography variant="h4" align="center">
                 Sign In
             </Typography>
-            <Box component='form' onSubmit={handleSubmit}>
+            <Box component='form' onSubmit={handleSubmit} autoComplete="">
 
                 <TextField
                     label="Email"
@@ -54,6 +54,7 @@ function LoginForm() {
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     fullWidth
                     margin="normal"
+                    autoComplete="current-email" 
                     required
 
 
@@ -66,6 +67,7 @@ function LoginForm() {
                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                     fullWidth
                     margin="normal"
+                    autoComplete="current-password"
                     required
 
 
