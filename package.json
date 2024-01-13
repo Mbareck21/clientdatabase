@@ -12,7 +12,7 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@fontsource/roboto": "^5.0.8",
-    "@mui/icons-material": "^5.14.11",
+    "@mui/icons-material": "^5.15.4",
     "@mui/lab": "^5.0.0-alpha.147",
     "@mui/material": "^5.14.11",
     "@mui/x-data-grid": "^6.16.0",
@@ -31,12 +31,10 @@
     "swr": "^2.2.4"
   },
   "devDependencies": {
-    "@faker-js/faker": "^8.3.1",
     "autoprefixer": "latest",
     "eslint": "latest",
     "eslint-config-next": "latest",
     "postcss": "latest",
-    "prettier": "3.0.3",
-    "tailwindcss": "latest"
+    "prettier": "3.0.3"
   }
 }
