@@ -3,7 +3,7 @@ const getClients = async () => {
       const res =  await fetch("http://localhost:3000/api/clients", {
             cache: "no-store"
       })
-        if (!re.ok) {
+        if (!res.ok) {
             throw new Error('Failed to get Data!')
         }
         return res.json()
