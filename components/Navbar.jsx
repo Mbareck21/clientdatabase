@@ -1,13 +1,12 @@
+'use client'
 
 import Link from "next/link";
-import { AppBar, Toolbar, Button, Box, Chip, Avatar, Stack, } from "@mui/material";
-import { getServerSession } from "next-auth";
-import { authOptions } from '../app/api/auth/[...nextauth]/route'
+import { AppBar, Toolbar, Button, Box, Chip, Avatar, Stack } from "@mui/material";
+import { useSession } from "next-auth/react";
 import AdminInfo from "./AdminInfo";
 
-
-export default async function Navbar() {
-    const session = await getServerSession(authOptions)
+export default function Navbar() {
+    const { data: session, status } = useSession();
 
     return (
         <>
@@ -21,21 +20,21 @@ export default async function Navbar() {
                             <Button sx={{ color: 'primary.contrastText' }}>Dashboard</Button>
                         </Link>
                     </Box>
-                    {session &&
+                    {session && (
                         <Box sx={{ flexGrow: 1 }}>
-                            <Chip avatar={<Avatar> {session.user.name[0]}</Avatar>} label={session.user.name + ' connected'} color="info" variant="outlined" />
+                            <Chip avatar={<Avatar>{session.user.name[0]}</Avatar>} label={session.user.name + ' connected'} color="info" variant="outlined" />
                         </Box>
-                    }
+                    )}
                     <Stack spacing={2} direction="row">
                         <Link href="/register" passHref>
                             <Button sx={{ color: 'primary.contrastText' }} >Register</Button>
                         </Link>
 
-                        {session &&
+                        {session && (
                             <Link href="/" passHref>
                                 <AdminInfo />
                             </Link>
-                        }
+                        )}
                     </Stack>
                 </Toolbar>
             </AppBar>

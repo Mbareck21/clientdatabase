@@ -3,6 +3,7 @@ import EditButton from './EditButton';
 import RemoveClient from './RemoveClient';
 import UnpublishedIcon from '@mui/icons-material/Unpublished';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import dayjs from 'dayjs';
 import clsx from 'clsx';
 import WarningIcon from '@mui/icons-material/Warning';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
@@ -37,14 +38,14 @@ export default function getColumns() {
 			headerClassName: 'super-app-theme--header',
 			width: 200,
 			cellClassName: 'super-app-theme--cell',
-			
+
 		},
 		{
 			field: "contact",
 			headerName: "Contact",
 			headerClassName: 'super-app-theme--header',
 			width: 100,
-			
+
 		},
 		{
 			field: "caseSize",
@@ -52,14 +53,15 @@ export default function getColumns() {
 			headerClassName: 'super-app-theme--header',
 			type: "number",
 			width: 100,
-			
+
 		},
 		{
 			field: "country",
 			headerName: "Country",
+			type: "country",
 			headerClassName: 'super-app-theme--header',
 			width: 100,
-			
+
 		},
 		{
 			field: "pendingCase",
@@ -78,7 +80,7 @@ export default function getColumns() {
 			headerClassName: 'super-app-theme--header',
 			type: "date",
 			width: 100,
-			
+
 			valueGetter: (params) => params.value && new Date(params.value),
 		},
 		{
@@ -111,7 +113,7 @@ export default function getColumns() {
 			headerName: "Receipt",
 			headerClassName: 'super-app-theme--header',
 			width: 100,
-			
+
 		},
 		{
 			field: "caseStatus",
@@ -129,7 +131,7 @@ export default function getColumns() {
 					color = 'error';
 				} else if (params.value === 'Applied') {
 					color = 'info';
-				} 
+				}
 
 				return <Chip icon={helperFunction(params.value)} label={params.value} color={color} sx={{ width: 100 }} />
 			}
@@ -139,7 +141,7 @@ export default function getColumns() {
 			headerName: "Lawyer",
 			headerClassName: 'super-app-theme--header',
 			width: 100,
-			
+
 		},
 		{
 			field: "notes",
@@ -148,7 +150,7 @@ export default function getColumns() {
 			width: 200,
 			valueGetter: (params) => {
 				if (params.value) {
-				return	params.value.length >= 1 ? params.value[params.value.length - 1].content :null;
+					return params.value.length >= 1 ? params.value[params.value.length - 1].content : null;
 				}
 			},
 		},
@@ -158,7 +160,7 @@ export default function getColumns() {
 			headerClassName: 'super-app-theme--header',
 			type: "date",
 			width: 100,
-			
+
 			valueGetter: (params) => params.value && new Date(params.value),
 		},
 		{
@@ -167,7 +169,7 @@ export default function getColumns() {
 			headerClassName: 'super-app-theme--header',
 			type: "date",
 			width: 100,
-			
+
 			valueGetter: (params) => params.value && new Date(params.value),
 		},
 		{
@@ -176,7 +178,7 @@ export default function getColumns() {
 			headerClassName: 'super-app-theme--header',
 			type: "date",
 			width: 100,
-			
+
 			valueGetter: (params) => params.value && new Date(params.value),
 		},
 		{
@@ -185,7 +187,7 @@ export default function getColumns() {
 			headerClassName: 'super-app-theme--header',
 			type: "date",
 			width: 100,
-			
+
 			valueGetter: (params) => params.value && new Date(params.value),
 		},
 		{
@@ -194,7 +196,7 @@ export default function getColumns() {
 			headerClassName: 'super-app-theme--header',
 			type: "date",
 			width: 100,
-			
+
 			valueGetter: (params) => params.value && new Date(params.value),
 		},
 		{
@@ -205,9 +207,9 @@ export default function getColumns() {
 			width: "100",
 			cellClassName: "actions",
 			getActions: ({ id }) => {
-				return [					
+				return [
 					<EditButton id={id} />,
-					<RemoveClient id={id} />				
+					<RemoveClient id={id} />
 				];
 			},
 		},
