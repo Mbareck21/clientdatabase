@@ -4,6 +4,6 @@ import { Button } from "@mui/material";
 
 export default function AdminInfo() {
     const { data: session } = useSession();
-    return <Button color="inherit" sx={{ bgcolor: 'secondary.dark' }} onClick={signOut}>SignOut</Button>
+    return <Button color="inherit" sx={{ bgcolor: 'error.main', color: 'white' }} onClick={signOut}>Logout</Button>
 
 }

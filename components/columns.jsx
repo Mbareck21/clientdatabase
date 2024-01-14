@@ -1,15 +1,26 @@
 import * as React from 'react';
 import EditButton from './EditButton';
 import RemoveClient from './RemoveClient';
+import UnpublishedIcon from '@mui/icons-material/Unpublished';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import clsx from 'clsx';
 import WarningIcon from '@mui/icons-material/Warning';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import PendingIcon from '@mui/icons-material/Pending';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import Chip from '@mui/material/Chip';
+import Link from 'next/link';
+
+import EditIcon from '@mui/icons-material/Edit';
+import {
+
+	GridActionsCellItem,
+} from '@mui/x-data-grid';
+import next from 'next';
 
 export default function getColumns() {
 	const caseTypes = ["Green Card", "Asylum", "EAD", "EAD Renewal", "CAM", "Citizenship Cert", "P-3", "I-730", "CAM-Reparole"];
+
 	const helperFunction = (status) => {
 		switch (status) {
 			case "Denied":
@@ -23,7 +34,6 @@ export default function getColumns() {
 			default:
 				return <PendingIcon fontSize="small" color="info" />
 		}
-
 	}
 
 
@@ -32,6 +42,7 @@ export default function getColumns() {
 		{
 			field: "principalApplicant",
 			headerName: "Principal Applicant",
+			headerClassName: 'super-app-theme--header',
 			width: 200,
 			cellClassName: 'super-app-theme--cell',
 			
@@ -39,12 +50,14 @@ export default function getColumns() {
 		{
 			field: "contact",
 			headerName: "Contact",
+			headerClassName: 'super-app-theme--header',
 			width: 100,
 			
 		},
 		{
 			field: "caseSize",
 			headerName: "Case Size",
+			headerClassName: 'super-app-theme--header',
 			type: "number",
 			width: 100,
 			
@@ -52,18 +65,25 @@ export default function getColumns() {
 		{
 			field: "country",
 			headerName: "Country",
+			headerClassName: 'super-app-theme--header',
 			width: 100,
 			
 		},
 		{
 			field: "pendingCase",
 			headerName: "Pending Case",
+			headerClassName: 'super-app-theme--header',
 			type: "boolean",
 			width: 100,
+			renderCell: (params) => {
+				return params.value === false ? <UnpublishedIcon color='warning' /> : <CheckCircleIcon color='success' />
+			}
+
 		},
 		{
 			field: "applicationDate",
 			headerName: "Application Date",
+			headerClassName: 'super-app-theme--header',
 			type: "date",
 			width: 100,
 			
@@ -72,6 +92,7 @@ export default function getColumns() {
 		{
 			field: "caseType",
 			headerName: "Case Type",
+			headerClassName: 'super-app-theme--header',
 			width: 120,
 			cellClassName: (params) => {
 				if (params.value == null) {
@@ -96,12 +117,14 @@ export default function getColumns() {
 		{
 			field: "receipt",
 			headerName: "Receipt",
+			headerClassName: 'super-app-theme--header',
 			width: 100,
 			
 		},
 		{
 			field: "caseStatus",
 			headerName: "Case Status",
+			headerClassName: 'super-app-theme--header',
 			type: "text",
 			width: 120,
 
@@ -122,12 +145,14 @@ export default function getColumns() {
 		{
 			field: "lawyer",
 			headerName: "Lawyer",
+			headerClassName: 'super-app-theme--header',
 			width: 100,
 			
 		},
 		{
 			field: "notes",
 			headerName: "Notes",
+			headerClassName: 'super-app-theme--header',
 			width: 200,
 			valueGetter: (params) => {
 				if (params.value) {
@@ -138,6 +163,7 @@ export default function getColumns() {
 		{
 			field: "interviewDate",
 			headerName: "Interview Date",
+			headerClassName: 'super-app-theme--header',
 			type: "date",
 			width: 100,
 			
@@ -146,6 +172,7 @@ export default function getColumns() {
 		{
 			field: "biometricsDate",
 			headerName: "Biometrics Date",
+			headerClassName: 'super-app-theme--header',
 			type: "date",
 			width: 100,
 			
@@ -154,6 +181,7 @@ export default function getColumns() {
 		{
 			field: "approvalDate",
 			headerName: "Approval Date",
+			headerClassName: 'super-app-theme--header',
 			type: "date",
 			width: 100,
 			
@@ -162,6 +190,7 @@ export default function getColumns() {
 		{
 			field: "denialDate",
 			headerName: "Denial Date",
+			headerClassName: 'super-app-theme--header',
 			type: "date",
 			width: 100,
 			
@@ -170,6 +199,7 @@ export default function getColumns() {
 		{
 			field: "caseClosingDate",
 			headerName: "Case Closing Date",
+			headerClassName: 'super-app-theme--header',
 			type: "date",
 			width: 100,
 			
@@ -179,14 +209,13 @@ export default function getColumns() {
 			field: "actions",
 			type: "actions",
 			headerName: "Actions",
+			headerClassName: 'super-app-theme--header',
 			width: "100",
 			cellClassName: "actions",
 			getActions: ({ id }) => {
-				return [
-					
+				return [					
 					<EditButton id={id} />,
-					<RemoveClient id={id}/>
-				
+					<RemoveClient id={id} />				
 				];
 			},
 		},

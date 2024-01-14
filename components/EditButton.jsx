@@ -1,15 +1,12 @@
-import Link from '@mui/material/Link';
+import Link from 'next/link';
 
-import EditIcon from '@mui/icons-material/Edit';
-import {
-
-  GridActionsCellItem,
-} from '@mui/x-data-grid';
+import EditNoteIcon from '@mui/icons-material/EditNote';
+import { GridActionsCellItem } from '@mui/x-data-grid';
 function EditButton({id}) {
     return (
        <Link href={`/editClient/${id}`}>
           <GridActionsCellItem
-						icon={<EditIcon />}
+          icon={<EditNoteIcon />}
 						label="Edit"
 						className="textPrimary"
 						color="inherit"

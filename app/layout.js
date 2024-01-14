@@ -1,6 +1,7 @@
-
+import Box from "@mui/material/Box";
 import Navbar from "../components/Navbar";
 import { AuthProvider } from "./Providers";
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -17,8 +18,12 @@ export default function RootLayout({ children }) {
 		<html lang="en">
 			<body>
 				<AuthProvider>
-					<Navbar />
-					{children}
+					<AppRouterCacheProvider>
+						<Navbar />
+						<Box sx={{ mt: 10 }}>
+							{children}
+						</Box>
+					</AppRouterCacheProvider>
 				</AuthProvider>
 			</body>
 		</html>

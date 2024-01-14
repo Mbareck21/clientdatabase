@@ -5,8 +5,6 @@ import { GridActionsCellItem, } from '@mui/x-data-grid';
 
 export default function RemoveBtn({ id }) {
 
-  // const router = useRouter();
-
   const removeClient = async () => {
     const confirmed = confirm("Are you sure?");
 
@@ -26,34 +24,7 @@ export default function RemoveBtn({ id }) {
       icon={<DeleteIcon />}
       label="Delete"
       onClick={removeClient} 
-      color="inherit"
+      color="error"
     />
   );
 }
-
-// export default function RemoveBtn({ id }) {
-//   const router = useRouter();
-//   const removeClient = async () => {
-//  const confirmed = confirm("Are you sure?");
-
-//     if (confirmed) {
-//       const res = await fetch(`http://localhost:3000/api/clients?id=${id}`, {
-//         method: "DELETE",
-//       });
-
-//       if (res.ok) {
-//         router.push("/");
-//       }
-//     }
-//   };
-
-
-//   return (
-//         <GridActionsCellItem
-//             icon={<DeleteIcon />}
-//             label="Delete"
-//             onClick={removeClient}
-//             color="inherit"
-//           />
-//   );
-// }
