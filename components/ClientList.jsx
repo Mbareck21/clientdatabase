@@ -27,7 +27,6 @@ export default function ClientsList() {
 
 
 	const [rows, setRows] = useState([])
-
 	React.useEffect(() => {
 		clientGetter();
 	}, []);
@@ -52,7 +51,7 @@ export default function ClientsList() {
 
 	return (
 
-		<Paper elevation={4}
+		<Box 
 
 			sx={{
 				height: 'auto',
@@ -102,7 +101,11 @@ export default function ClientsList() {
 				'& .super-app.car': {
 					backgroundColor: 'rgba(157, 118, 255, 0.49)',
 					color: '#1a3e72'
-				}
+				},
+				'& .super-app-theme--header': {
+					backgroundColor: '#e9ecef',
+				},
+				
 			}}>
 
 			{/* <Button variant="contained" color="success" href="/addClient" >Add Client</Button> */}
@@ -134,7 +137,7 @@ export default function ClientsList() {
 				disableRowSelectionOnClick
 
 			/>
-		</Paper>
+		</Box>
 
 	);
 }

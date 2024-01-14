@@ -1,6 +1,6 @@
 
 import Link from "next/link";
-import { AppBar, Toolbar, Button, Box, Chip, Typography, Stack, } from "@mui/material";
+import { AppBar, Toolbar, Button, Box, Chip, Avatar, Stack, } from "@mui/material";
 import { getServerSession } from "next-auth";
 import { authOptions } from '../app/api/auth/[...nextauth]/route'
 import AdminInfo from "./AdminInfo";
@@ -10,38 +10,35 @@ export default async function Navbar() {
     const session = await getServerSession(authOptions)
 
     return (
-        <AppBar position="static"
-            sx={{ bgcolor: "primary.dark" }}>
-            <Toolbar>
-                <Box sx={{ flexGrow: 1 }}>
-                    <Link href="/" passHref>
-                        <Button color="inherit" sx={{ bgcolor: 'primary.light' }}>Home</Button>
-                    </Link>
-                </Box>
-                {session &&
-
-                    <Box sx={{ flexGrow: 1 }}>
-
-                        <Chip label={session.user.name || "Guest"} color="secondary" variant="outlined" />
-                        <Chip label={session.user.email} variant="outlined" />
-                    </Box>
-                }
-                <Stack spacing={2} direction="row">
-
-                    <Link href="/register" passHref>
-                        <Button color="inherit" sx={{ bgcolor: 'primary.light' }} >Register</Button>
-                    </Link>
-
-                    <Link href="/dashboard" passHref>
-                        <Button color="inherit" sx={{ bgcolor: 'primary.light' }}>Dashboard</Button>
-                    </Link>
-                    {session &&
+        <>
+            <AppBar position="fixed" sx={{ bgcolor: '#39393a', color: 'primary.contrastText' }}>
+                <Toolbar variant="regular">
+                    <Box sx={{ flexGrow: 1, }}>
                         <Link href="/" passHref>
-                            <AdminInfo />
+                            <Button sx={{ color: 'primary.contrastText' }}>Home</Button>
                         </Link>
+                        <Link href="/dashboard" passHref>
+                            <Button sx={{ color: 'primary.contrastText' }}>Dashboard</Button>
+                        </Link>
+                    </Box>
+                    {session &&
+                        <Box sx={{ flexGrow: 1 }}>
+                            <Chip avatar={<Avatar> {session.user.name[0]}</Avatar>} label={session.user.name + ' connected'} color="info" variant="outlined" />
+                        </Box>
                     }
-                </Stack>
-            </Toolbar>
-        </AppBar>
+                    <Stack spacing={2} direction="row">
+                        <Link href="/register" passHref>
+                            <Button sx={{ color: 'primary.contrastText' }} >Register</Button>
+                        </Link>
+
+                        {session &&
+                            <Link href="/" passHref>
+                                <AdminInfo />
+                            </Link>
+                        }
+                    </Stack>
+                </Toolbar>
+            </AppBar>
+        </>
     );
 }

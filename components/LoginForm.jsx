@@ -90,8 +90,6 @@ function LoginForm() {
                         </Link>
                     </Typography>
                 </Box>
-
-
             </Box>
         </Box >
     );
