@@ -9,14 +9,6 @@ import DoneAllIcon from '@mui/icons-material/DoneAll';
 import PendingIcon from '@mui/icons-material/Pending';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import Chip from '@mui/material/Chip';
-import Link from 'next/link';
-
-import EditIcon from '@mui/icons-material/Edit';
-import {
-
-	GridActionsCellItem,
-} from '@mui/x-data-grid';
-import next from 'next';
 
 export default function getColumns() {
 	const caseTypes = ["Green Card", "Asylum", "EAD", "EAD Renewal", "CAM", "Citizenship Cert", "P-3", "I-730", "CAM-Reparole"];

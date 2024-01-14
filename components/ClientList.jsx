@@ -113,7 +113,7 @@ export default function ClientsList() {
 				autoHeight
 				sx={{ '--DataGrid-overlayHeight': '300px' }}
 				rows={rows}
-				// loading= {loading}
+				density="compact"
 				getRowId={getRowId}
 				columns={columns()}
 				slots={{
