@@ -2,7 +2,6 @@
 // import { useRouter } from "next/navigation";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { GridActionsCellItem, } from '@mui/x-data-grid';
-
 export default function RemoveBtn({ id }) {
 
   const removeClient = async () => {
@@ -23,7 +22,7 @@ export default function RemoveBtn({ id }) {
     <GridActionsCellItem
       icon={<DeleteIcon />}
       label="Delete"
-      onClick={removeClient} 
+      onClick={removeClient}
       color="error"
     />
   );

@@ -1,43 +1,38 @@
-'use client'
+'use client';
 
-import Link from "next/link";
-import { AppBar, Toolbar, Button, Box, Chip, Avatar, Stack } from "@mui/material";
-import { useSession } from "next-auth/react";
-import AdminInfo from "./AdminInfo";
+import Link from 'next/link';
+import { AppBar, Toolbar, Button, Box, Chip, Avatar } from '@mui/material';
+import { signOut } from 'next-auth/react';
+import useSessionState from './useSessionState'
 
 export default function Navbar() {
-    const { data: session, status } = useSession();
+    const session = useSessionState();
 
     return (
-        <>
-            <AppBar position="fixed" sx={{ bgcolor: '#39393a', color: 'primary.contrastText' }}>
-                <Toolbar variant="regular">
-                    <Box sx={{ flexGrow: 1, }}>
-                        <Link href="/" passHref>
-                            <Button sx={{ color: 'primary.contrastText' }}>Home</Button>
-                        </Link>
-                        <Link href="/dashboard" passHref>
-                            <Button sx={{ color: 'primary.contrastText' }}>Dashboard</Button>
-                        </Link>
-                    </Box>
-                    {session && (
-                        <Box sx={{ flexGrow: 1 }}>
-                            <Chip avatar={<Avatar>{session.user.name[0]}</Avatar>} label={session.user.name + ' connected'} color="info" variant="outlined" />
-                        </Box>
-                    )}
-                    <Stack spacing={2} direction="row">
-                        <Link href="/register" passHref>
-                            <Button sx={{ color: 'primary.contrastText' }} >Register</Button>
-                        </Link>
-
-                        {session && (
-                            <Link href="/" passHref>
-                                <AdminInfo />
-                            </Link>
-                        )}
-                    </Stack>
-                </Toolbar>
-            </AppBar>
-        </>
+        <AppBar position="fixed" sx={{ bgcolor: '#39393a', color: 'primary.contrastText' }}>
+            <Toolbar variant="regular">
+                <Box sx={{ flexGrow: 1 }}>
+                    <Link href="/" passHref>
+                        <Button sx={{ color: 'primary.contrastText', bgcolor: 'primary.dark' }}>Home</Button>
+                    </Link>
+                    <Link href="/dashboard" passHref>
+                        <Button sx={{ color: 'primary.contrastText' }}>Dashboard</Button>
+                    </Link>
+                </Box>
+                {session?.user?.name && <Box sx={{ flexGrow: 1 }}>
+                    <Chip avatar={<Avatar>{session?.user?.name && session.user.name[0]}</Avatar>} label={session?.user?.name && session.user.name + ' connected'} color="info" variant="outlined" />
+                </Box>
+                }
+                {session?.user?.name ? (
+                    <Button sx={{ color: 'white', bgcolor: 'red' }} onClick={() => signOut()}>
+                        Logout
+                    </Button>
+                ) : (
+                    <Link href="/register" passHref>
+                        <Button sx={{ color: 'primary.contrastText', bgcolor: 'secondary.dark' }}>Register</Button>
+                    </Link>
+                )}
+            </Toolbar>
+        </AppBar>
     );
 }
