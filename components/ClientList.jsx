@@ -1,12 +1,29 @@
 'use client';
 
 import React, { useState, useEffect } from "react";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar, GridToolbarContainer } from "@mui/x-data-grid";
+import { GridToolbarQuickFilter } from '@mui/x-data-grid/components';
 import columns from './columns'
 import CustomNoRowsOverlay from "./CustomNoRowsOverlay";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
+import Link from 'next/link'
 
+function CustomToolbar() {
+	return (
+		<GridToolbarContainer>
+			<GridToolbar />
+			<Box sx={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
+				<GridToolbarQuickFilter />
+				<Link href="/addClient" passHref>
+					<Button variant="contained" size="small" sx={{ ml: 2 }}>
+						Add Client
+					</Button>
+				</Link>
+			</Box>
 
+		</GridToolbarContainer>
+	);
+}
 const useClients = () => {
 	const [clients, setClients] = useState([]);
 
@@ -108,13 +125,8 @@ const ClientsList = () => {
 				density="compact"
 				columns={columns()}
 				slots={{
-					toolbar: GridToolbar,
+					toolbar: CustomToolbar,
 					noRowsOverlay: CustomNoRowsOverlay
-				}}
-				slotProps={{
-					toolbar: {
-						showQuickFilter: true,
-					},
 				}}
 				initialState={{
 					pagination: {

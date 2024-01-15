@@ -208,10 +208,11 @@ export default function getColumns() {
 			cellClassName: "actions",
 			getActions: (params) => {
 				return [
-					<EditButton id={params.id} />,
-					<RemoveClient id={params.id} />
+					<EditButton key={params.id} id={params.id} />,
+					<RemoveClient key={params.id} id={params.id} />
 				];
 			},
+
 		},
 	];
 	return columns;
