@@ -42,7 +42,7 @@ function RegisterForm() {
                 body: JSON.stringify({ formData }),
             });
             if (res.ok) {
-                router.push("/login");
+                router.push("/");
             } else {
                 throw new Error("Failed to register new admin");
             }

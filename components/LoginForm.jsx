@@ -1,9 +1,8 @@
 'use client'
 import { useState } from "react";
 import { TextField, Button, Box, Typography, Alert, Link } from "@mui/material"
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react"
-import { red } from "@mui/material/colors";
 
 function LoginForm() {
     const [formData, setFormData] = useState({
@@ -20,7 +19,7 @@ function LoginForm() {
             const res = await signIn("credentials", {
                 email: formData.email,
                 password: formData.password,
-                // redirect: true,
+                redirect: false,
             })
             if (res.error) {
                 setError("Invalid credentials")

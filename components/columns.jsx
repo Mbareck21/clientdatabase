@@ -206,10 +206,10 @@ export default function getColumns() {
 			headerClassName: 'super-app-theme--header',
 			width: "100",
 			cellClassName: "actions",
-			getActions: ({ id }) => {
+			getActions: (params) => {
 				return [
-					<EditButton id={id} />,
-					<RemoveClient id={id} />
+					<EditButton id={params.id} />,
+					<RemoveClient id={params.id} />
 				];
 			},
 		},

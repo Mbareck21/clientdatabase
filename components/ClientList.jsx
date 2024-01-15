@@ -13,7 +13,7 @@ const useClients = () => {
 	const getClients = async () => {
 		try {
 			const res = await fetch("/api/clients", {
-				cache: "force-cache",
+				cache: "default",
 			});
 			if (!res.ok) {
 				throw new Error('Failed to fetch Data!');

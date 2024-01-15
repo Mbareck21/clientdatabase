@@ -2,10 +2,7 @@ import Box from "@mui/material/Box";
 import Navbar from "../components/Navbar";
 import { AuthProvider } from "./Providers";
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
+
 
 
 export const metadata = {
