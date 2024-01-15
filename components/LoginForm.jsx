@@ -82,8 +82,8 @@ function LoginForm() {
                 </Button>
                 <Box sx={{ mt: 2, display: 'flex', justifyContent: 'center' }}>
                     <Typography variant="body2">
-                        Don't have an account?{' '}
-                        <Link href="/register" color="secondary">
+                        Don`&rsquo;`t have an account?{' '}
+                        <Link href="/register" color="secondary" underline="hover">
                             Register here
                         </Link>
                     </Typography>

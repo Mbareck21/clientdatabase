@@ -1,6 +1,0 @@
-MONGODB_URI=mongodb+srv://mmmbarec:RFQkhFxUi4CZWgyf@cluster0.ko8n9gr.mongodb.net/clients_db
-
-
-NEXTAUTH_SECRET=X6Q9ZgQbY0w8BZxv7yY2f0j4l7+0QpWkqLJ6Xw4j9sM=
-
-NEXTAUTH_URL=http://localhost:3000
