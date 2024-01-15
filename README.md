@@ -1,24 +1,39 @@
-# MongoDB Client Database
+# Immigration Case Management App �
 
-This is a web application built using Next.js 13 and Material UI. It allows users to manage a MongoDB database through a simple dashboard interface.
+
+This is a full-stack web application built using Next.js 13, Material UI and MongoDB to help immigration lawyers manage their client cases.
 
 ## Features
 
-- View all documents in a collection
-- Add new documents
-- Edit existing documents
-- Delete documents
-- Search documents by property values
+- Register and Login for admins 👤
+- Admins can view, add, edit, delete and search cases 📝
+- Advanced filtering and searching of cases by any field 🔎
+- View all client cases in a grid 🗂
+- Add new client cases ➕
+- Edit existing client cases ✏️
+- Delete client cases 🗑️
+- View details of each case including dates, info and notes 📅
 
 ## Technologies
 
-- Next.js 13 - React framework for server-side rendering and static site generation
-- Material UI - React component library that implements Google's Material Design
-- MongoDB - Document-oriented NoSQL database
-- Mongoose - MongoDB object modeling for Node.js
+- NextAuth.js - Authentication for Next.js 🔐
+- Next.js 13 - React framework for server-side rendering and static site generation ⚛️
+- Material UI - React component library that implements Google's Material Design 🎨
+- MongoDB - Document-oriented NoSQL database 📘
+- Mongoose - MongoDB object modeling for Node.js 🐍
 
-## Coming Soon
+## Functionality
 
-- User authentication system to manage access to the dashboard
-- Additional CRUD functionality for documents
-- Enhanced search and filtering of documents
+The app allows:
+
+- Admins to login 👤
+- Admins to view, add, edit, delete and search all cases 👀
+- Advanced filtering and searching of cases by any field 🔎
+- Add a new client case with details like name, case info, dates and notes ➕
+- View a grid of all client cases 🗂
+- Click on a case to edit it or view more details ✏️
+- Edit case details like dates and notes 📝
+- Delete a case 🗑️
+- Search and filter cases by any field 🔎
+
+The data is stored in a MongoDB database and accessed via a Next.js API route. 📁
