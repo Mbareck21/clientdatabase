@@ -1,9 +1,9 @@
 'use client'
 import { useState } from "react";
 import { TextField, Button, Box, Typography, Alert, Link } from "@mui/material"
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { signIn } from "next-auth/react"
-
+import { red } from "@mui/material/colors";
 
 function LoginForm() {
     const [formData, setFormData] = useState({
@@ -20,18 +20,17 @@ function LoginForm() {
             const res = await signIn("credentials", {
                 email: formData.email,
                 password: formData.password,
-                redirect: false,
+                // redirect: true,
             })
             if (res.error) {
                 setError("Invalid credentials")
                 return;
             }
-            router.push("/dashboard");
+            router.refresh()
         } catch (error) {
             console.log('Error: ', error.message);
         }
     }
-
 
     return (
         <Box
@@ -54,7 +53,7 @@ function LoginForm() {
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     fullWidth
                     margin="normal"
-                    autoComplete="current-email" 
+                    autoComplete="current-email"
                     required
 
 
