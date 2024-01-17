@@ -1,7 +1,7 @@
 import EditClientForm from "@/components/EditClientForm";
 const getClientById = async (id) => {
   try {
-    const res = await fetch(`http://localhost:3000/api/clients/${id}`, {
+    const res = await fetch(`/api/clients/${id}`, {
       cache: "no-cache",
     });
 

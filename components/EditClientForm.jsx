@@ -33,7 +33,7 @@ export default function EditClientForm({ id, client }) {
 		};
 		newClient.notes = newNote.content !== "" ? [...formData.notes, newNote] : [...formData.notes];
 		try {
-			const res = await fetch(`http://localhost:3000/api/clients/${id}`, {
+			const res = await fetch(`/api/clients/${id}`, {
 				method: "PUT",
 				headers: {
 					"Content-type": "application/json",
