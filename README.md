@@ -2,7 +2,7 @@
 
 
 This is a full-stack web application built using Next.js 13, Material UI and MongoDB to help immigration lawyers manage their client cases.
-
+The app is deployed on Vercel [HERE](https://mongodb-client-database.vercel.app/)
 ## Features
 
 - Register and Login for admins 👤
