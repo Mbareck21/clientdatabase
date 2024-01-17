@@ -39,7 +39,7 @@ export default function AddClientForm() {
 		const newClient = { ...formData, notes: formData.notes.content !== "" ? [formData.notes] : [] };
 
 		try {
-			const res = await fetch("http://localhost:3000/api/clients", {
+			const res = await fetch("/api/clients", {
 				method: "POST",
 				headers: {
 					"Content-type": "application/json",

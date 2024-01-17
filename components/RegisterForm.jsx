@@ -20,7 +20,7 @@ function RegisterForm() {
         console.log(formData);
         const { email } = formData;
         try {
-            const adminExistsRes = await fetch('api/adminExists', {
+            const adminExistsRes = await fetch('/api/adminExists', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
