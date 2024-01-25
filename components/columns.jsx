@@ -207,9 +207,10 @@ export default function getColumns() {
 			width: "100",
 			cellClassName: "actions",
 			getActions: (params) => {
+				const { id } = params
 				return [
-					<EditButton key={params.id} id={params.id} />,
-					<RemoveClient key={params.id} id={params.id} />
+					<EditButton key={id} id={id} />,
+					<RemoveClient key={id} id={id} />
 				];
 			},
 
