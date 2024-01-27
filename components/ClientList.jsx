@@ -62,12 +62,11 @@ const ClientsList = () => {
 		<Box
 			sx={{
 				height: 'auto',
-				color: '#1a3e72',
+				// color: '#1a3e72',
 
 				'& .super-app-theme--cell': {
 					backgroundColor: '#E3DAC9',
-					color: '#1a3e72',
-					fontWeight: '500',
+					color: '#114e8b',
 				},
 				'& .super-app.gc': {
 					backgroundColor: 'rgba(157, 255, 118, 0.49)',
@@ -110,9 +109,9 @@ const ClientsList = () => {
 					color: '#1a3e72'
 				},
 				'& .super-app-theme--header': {
-					backgroundColor: '#e9ecef',
-					color: 'primary.main',
-					fontWeight: '600',
+					backgroundColor: '#E3DAC9',
+					color: '#114e8b',
+					fontWeight: '700',
 
 				},
 

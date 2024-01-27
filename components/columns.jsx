@@ -1,3 +1,4 @@
+// 'use client'
 import * as React from 'react';
 import EditButton from './EditButton';
 import RemoveClient from './RemoveClient';
@@ -19,7 +20,7 @@ export default function getColumns() {
 			case "Denied":
 				return <WarningIcon fontSize="small" color="danger" />
 			case "Approved":
-				return <DoneAllIcon fontSize="small" color="success" />
+				return <DoneAllIcon fontSize="small" color="#ccd5ae" />
 			case "Pending":
 				return <PendingIcon fontSize="small" color="warning" />
 			case "Applied":
@@ -123,17 +124,19 @@ export default function getColumns() {
 			width: 120,
 
 			renderCell: (params) => {
-				let color = 'default';
+				let color = '';
 
 				if (params.value === 'Approved') {
-					color = 'success';
+					color = '#3a5a40';
 				} else if (params.value === 'Denied') {
-					color = 'error';
+					color = '#d00000';
 				} else if (params.value === 'Applied') {
-					color = 'info';
+					color = '#0077b6';
+				} else if (params.value === 'Pending') {
+					color = "#fb5607"
 				}
 
-				return <Chip icon={helperFunction(params.value)} label={params.value} color={color} sx={{ width: 100 }} />
+				return <Chip icon={helperFunction(params.value)} label={params.value} sx={{ width: 100, color: { color } }} />
 			}
 		},
 		{
@@ -204,13 +207,13 @@ export default function getColumns() {
 			type: "actions",
 			headerName: "Actions",
 			headerClassName: 'super-app-theme--header',
-			width: "100",
+			width: 100,
 			cellClassName: "actions",
 			getActions: (params) => {
-				const { id } = params
+				// const { id } = params
 				return [
-					<EditButton key={id} id={id} />,
-					<RemoveClient key={id} id={id} />
+					<EditButton key={params.id} id={params.id} />,
+					<RemoveClient key={params.id} id={params.id} />
 				];
 			},
 
