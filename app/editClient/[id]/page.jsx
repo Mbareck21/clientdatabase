@@ -5,7 +5,7 @@ import { Typography } from "@mui/material";
 const getClientById = async ({ id }) => {
   try {
     const res = await fetch(process.env.NEXTAUTH_URL + `/api/clients/${id}`, {
-      cache: "no-cache",
+      cache: 'no-store',
     });
 
     if (!res.ok) {
