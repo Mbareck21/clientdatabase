@@ -1,0 +1,1 @@
+Review client display: https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating
