@@ -15,7 +15,7 @@ import dayjs from "dayjs";
 const caseTypes = ["Green Card", "Asylum", "EAD", "EAD Renewal", "CAM", "Citizenship Cert", "P-3", "I-730", "CAM-Reparole"];
 
 export default function EditClientForm({ id, client }) {
-
+	console.log(client)
 	const [formData, setFormData] = useState({ ...client });
 	const [newNote, setNewNote] = useState({ content: "", date: "" });
 
@@ -67,7 +67,7 @@ export default function EditClientForm({ id, client }) {
 				<TextField
 					name="principalApplicant"
 					label="Principal Applicant"
-					required
+
 					value={formData.principalApplicant}
 					onChange={(e) => setFormData({
 						...formData,
@@ -77,7 +77,7 @@ export default function EditClientForm({ id, client }) {
 				<TextField
 					name="contact"
 					label="Contact"
-					required
+
 					value={formData.contact}
 					onChange={(e) => setFormData({
 						...formData,
@@ -89,7 +89,7 @@ export default function EditClientForm({ id, client }) {
 					label="Case Size"
 					type="number"
 					autoComplete="off"
-					required
+
 					value={formData.caseSize}
 					onChange={(e) => setFormData({
 						...formData,
@@ -99,7 +99,7 @@ export default function EditClientForm({ id, client }) {
 				<TextField
 					name="country"
 					label="Country"
-					required
+
 					autoComplete="country"
 					value={formData.country}
 					onChange={(e) => setFormData({
@@ -127,7 +127,7 @@ export default function EditClientForm({ id, client }) {
 				<DatePicker
 					label="Application Date"
 					type="date"
-					value={dayjs(formData.applicationDate)}
+					value={dayjs(formData.applicationDate || null)}
 					onChange={(newValue) => setFormData({
 						...formData,
 						applicationDate: newValue
@@ -188,7 +188,7 @@ export default function EditClientForm({ id, client }) {
 				<DatePicker
 					label="Interview Date"
 					type="date"
-					value={dayjs(formData.interviewDate)}
+					value={dayjs(formData.interviewDate || null)}
 					onChange={(newValue) => setFormData({
 						...formData,
 						interviewDate: newValue
@@ -197,7 +197,7 @@ export default function EditClientForm({ id, client }) {
 				<DatePicker
 					label="Biometrics Date"
 					type="date"
-					value={dayjs(formData.biometricsDate)}
+					value={dayjs(formData.biometricsDate || null)}
 					onChange={(newValue) => setFormData({
 						...formData,
 						biometricsDate: newValue
@@ -206,7 +206,7 @@ export default function EditClientForm({ id, client }) {
 				<DatePicker
 					label="Approval Date"
 					type="date"
-					value={dayjs(formData.approvalDate)}
+					value={dayjs(formData.approvalDate || null)}
 					onChange={(newValue) => setFormData({
 						...formData,
 						approvalDate: newValue
@@ -214,7 +214,7 @@ export default function EditClientForm({ id, client }) {
 				/>
 				<DatePicker
 					label="denialDate"
-					value={dayjs(formData.denialDate)}
+					value={dayjs(formData.denialDate || null)}
 					onChange={(newValue) => setFormData({
 						...formData,
 						denialDate: newValue
@@ -222,7 +222,7 @@ export default function EditClientForm({ id, client }) {
 				/>
 				<DatePicker
 					label="caseClosingDate"
-					value={dayjs(formData.caseClosingDate)}
+					value={dayjs(formData.caseClosingDate || null)}
 					onChange={(newValue) => setFormData({
 						...formData,
 						caseClosingDate: newValue
