@@ -20,7 +20,6 @@ const getClientById = async ({ id }) => {
 
 export default async function EditClient({ params }) {
   const { id } = params;
-  console.log('client id: ', id);
   const result = await getClientById({ id });
   if (result) {
     const { client } = result;
