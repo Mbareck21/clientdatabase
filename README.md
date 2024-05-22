@@ -1,6 +1,6 @@
 # Immigration Case Management App �
 
-
+I developed this app to hone my data analytics and SWE skills, creating a database (table) to store and manage clients' data on a remote, secure database..
 This is a full-stack web application built using Next.js 13, Material UI and MongoDB (database) to help immigration lawyers manage their client cases.
 The app is deployed on Vercel [HERE](https://clientdatabase-hazel.vercel.app/dashboard)
 ## Features
