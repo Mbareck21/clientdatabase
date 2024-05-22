@@ -37,5 +37,6 @@ The app allows:
 - Search and filter cases by any field 🔎
 
 The data is stored in a MongoDB database and accessed via a Next.js API route. 📁
-![image](https://github.com/Mbareck21/clientdatabase/assets/93048977/fd501de8-7cd1-4754-b75d-670be597bdd7)
+![image](https://github.com/Mbareck21/clientdatabase/assets/93048977/387d831e-55da-4cfe-ba23-cad55c5c7bb6)
+
 
