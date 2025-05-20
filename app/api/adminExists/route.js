@@ -12,5 +12,6 @@ export async function POST(req) {
 
     } catch (error) {
         console.log(error);
+        return NextResponse.json({ message: "An error occurred while checking admin existence." }, { status: 500 });
     }
 }

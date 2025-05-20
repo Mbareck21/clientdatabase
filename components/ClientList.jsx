@@ -24,19 +24,21 @@ function CustomToolbar() {
 		</GridToolbarContainer>
 	);
 }
-const useClients = () => {
+const useClients = (page, limit) => {
 	const [clients, setClients] = useState([]);
+    const [totalClients, setTotalClients] = useState(0);
 
 	const getClients = async () => {
 		try {
-			const res = await fetch("/api/clients", {
+			const res = await fetch(`/api/clients?page=${page}&limit=${limit}`, {
 				cache: "default",
 			});
 			if (!res.ok) {
 				throw new Error('Failed to fetch Data!');
 			}
 			const resData = await res.json();
-			setClients(resData);
+			setClients(resData.clients);
+            setTotalClients(resData.totalClients);
 
 		} catch (error) {
 			console.log(error);
@@ -44,19 +46,19 @@ const useClients = () => {
 	};
 	useEffect(() => {
 		getClients();
-	}, []);
+	}, [page, limit]);
 
-	return clients;
+	return { clients, totalClients };
 };
 
 const ClientsList = () => {
-	const clients = useClients();
+    const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 20 });
+
+	const { clients, totalClients } = useClients(paginationModel.page + 1, paginationModel.pageSize);
+
 	const rowsWithId = clients.map(c => {
 		return { ...c, id: c._id };
 	});
-
-
-
 
 	return (
 		<Box
@@ -127,13 +129,10 @@ const ClientsList = () => {
 					toolbar: CustomToolbar,
 					noRowsOverlay: CustomNoRowsOverlay
 				}}
-				initialState={{
-					pagination: {
-						paginationModel: {
-							pageSize: 20,
-						},
-					},
-				}}
+                rowCount={totalClients}
+                paginationMode="server"
+                paginationModel={paginationModel}
+                onPaginationModelChange={setPaginationModel}
 				pageSizeOptions={[20]}
 				disableRowSelectionOnClick
 

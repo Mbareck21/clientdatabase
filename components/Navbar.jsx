@@ -23,7 +23,7 @@ export default function Navbar() {
                     <Chip avatar={<Avatar>{session?.user?.name && session.user.name[0]}</Avatar>} label={session?.user?.name && session.user.name + ' connected'} color="info" variant="outlined" />
                 </Box>
                 }
-                {session?.user?.name ? (
+                {session ? ( // Check if session exists
                     <Button sx={{ color: 'white', bgcolor: 'red' }} onClick={() => signOut()}>
                         Logout
                     </Button>
