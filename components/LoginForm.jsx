@@ -3,8 +3,9 @@ import { useState } from "react";
 import { TextField, Button, Box, Typography, Alert, Link } from "@mui/material"
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react"
-
 function LoginForm() {
+
+
     const [formData, setFormData] = useState({
         email: "",
         password: "",
@@ -12,14 +13,13 @@ function LoginForm() {
     const [error, setError] = useState(null);
     const router = useRouter();
 
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const res = await signIn("credentials", {
                 email: formData.email,
                 password: formData.password,
-                redirect: false,
+                redirect: true,
             })
             if (res.error) {
                 setError("Invalid credentials")
@@ -82,7 +82,7 @@ function LoginForm() {
                 </Button>
                 <Box sx={{ mt: 2, display: 'flex', justifyContent: 'center' }}>
                     <Typography variant="body2">
-                        Don`&rsquo;`t have an account?{' '}
+                        Don&rsquo;t have an account?{' '}
                         <Link href="/register" color="secondary" underline="hover">
                             Register here
                         </Link>
