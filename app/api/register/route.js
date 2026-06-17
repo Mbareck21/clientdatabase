@@ -19,6 +19,13 @@ export async function POST(req) {
 
         await connectMongoDB()
 
+        // Signup is locked to the first admin only. Once any admin account
+        // exists, registration is closed (server-enforced).
+        const adminCount = await Admin.countDocuments()
+        if (adminCount > 0) {
+            return NextResponse.json({ message: "Registration is closed" }, { status: 403 })
+        }
+
         const existing = await Admin.findOne({ email })
         if (existing) {
             return NextResponse.json({ message: "An account with this email already exists" }, { status: 409 })
