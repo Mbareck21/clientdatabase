@@ -13,7 +13,7 @@ export default function RemoveBtn({ id }) {
       });
 
       if (res.ok) {
-        window.location.href = "/";
+        window.location.href = "/dashboard";
       }
     }
   };
