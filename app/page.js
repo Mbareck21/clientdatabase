@@ -12,24 +12,22 @@ export default async function Home() {
 	return (
 		<Box
 			sx={{
-				minHeight: '100vh',
+				minHeight: '80vh',
 				display: 'flex',
 				justifyContent: 'center',
 				alignItems: 'center',
-				
 			}}
 		>
 			<Container maxWidth="sm">
-				<Paper elevation={8} sx={{ p: 4, borderRadius: '16px', textAlign: 'center' }}>
-					<Typography variant="h4" component="h1" gutterBottom sx={{ fontWeight: 'bold', color: '#1976d2' }}>
-						Immigration Case Management System
+				<Paper elevation={3} sx={{ p: { xs: 3, sm: 5 }, textAlign: 'center' }}>
+					<Typography variant="h4" component="h1" gutterBottom sx={{ fontWeight: 700, color: 'primary.main' }}>
+						Immigration Case Management
 					</Typography>
-					<Typography variant="subtitle1" gutterBottom sx={{ color: '#555' }}>
-						Efficiently manage your immigration cases with ease.
+					<Typography variant="subtitle1" gutterBottom sx={{ color: 'text.secondary' }}>
+						Track and manage your immigration cases in one place.
 					</Typography>
-					<Typography variant="body2" align="center" paragraph sx={{ color: '#777' }}>
-						This system provides comprehensive tools for CRUD operations on client records, with features for organization, retrieval,
-						and dynamic display based on case specifics. Securely powered by MongoDB.
+					<Typography variant="body2" align="center" sx={{ color: 'text.secondary', mb: 1 }}>
+						Securely organize client records, retrieve cases, and stay on top of key dates.
 					</Typography>
 					<Box sx={{ mt: 3 }}>
 						<LoginForm />

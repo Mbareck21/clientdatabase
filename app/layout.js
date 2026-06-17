@@ -1,9 +1,12 @@
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
+
 import Box from "@mui/material/Box";
 import Navbar from "../components/Navbar";
 import { AuthProvider } from "./Providers";
+import ThemeRegistry from "./ThemeRegistry";
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
-
-
 
 export const metadata = {
 	title: "Clients Database",
@@ -14,14 +17,23 @@ export default function RootLayout({ children }) {
 	return (
 		<html lang="en">
 			<body>
-				<AuthProvider>
-					<AppRouterCacheProvider>
-						<Navbar />
-						<Box sx={{ mt: 10 }}>
-							{children}
-						</Box>
-					</AppRouterCacheProvider>
-				</AuthProvider>
+				<AppRouterCacheProvider>
+					<ThemeRegistry>
+						<AuthProvider>
+							<Navbar />
+							<Box
+								component="main"
+								sx={{
+									mt: { xs: 9, sm: 10 },
+									px: { xs: 2, sm: 3 },
+									pb: 5,
+								}}
+							>
+								{children}
+							</Box>
+						</AuthProvider>
+					</ThemeRegistry>
+				</AppRouterCacheProvider>
 			</body>
 		</html>
 	);
