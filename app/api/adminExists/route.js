@@ -4,14 +4,16 @@ import { NextResponse } from "next/server"
 
 export async function POST(req) {
     try {
-        await connectMongoDB()
         const { email } = await req.json()
+        if (typeof email !== "string") {
+            return NextResponse.json({ message: "Invalid email" }, { status: 400 });
+        }
+        await connectMongoDB()
         const admin = await Admin.findOne({ email }).select('_id')
-        console.log('admin ID: ', admin);
         return NextResponse.json({ admin })
 
     } catch (error) {
-        console.log(error);
+        console.error("adminExists error:", error.message);
         return NextResponse.json({ message: "An error occurred while checking admin existence." }, { status: 500 });
     }
 }

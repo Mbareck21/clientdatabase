@@ -1,6 +1,6 @@
 'use client'
 import { useState } from "react";
-import { TextField, Button, Box, Typography, Alert, Link } from "@mui/material"
+import { TextField, Button, Box, Typography, Alert, Link, CircularProgress } from "@mui/material"
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react"
 function LoginForm() {
@@ -11,23 +11,32 @@ function LoginForm() {
         password: "",
     });
     const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
     const router = useRouter();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setError(null);
+        setLoading(true);
         try {
+            // redirect:false so we can show the error inline; the navbar updates
+            // reactively via useSession once the session cookie is set.
             const res = await signIn("credentials", {
                 email: formData.email,
                 password: formData.password,
-                redirect: true,
+                redirect: false,
             })
-            if (res.error) {
-                setError("Invalid credentials")
+            if (!res || res.error) {
+                setError("Invalid email or password")
                 return;
             }
+            router.push("/dashboard")
             router.refresh()
         } catch (error) {
-            console.log('Error: ', error.message);
+            setError("Something went wrong. Please try again.")
+            console.error('Login error: ', error?.message);
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -76,9 +85,12 @@ function LoginForm() {
                     variant="contained"
                     color="primary"
                     fullWidth
+                    size="large"
+                    disabled={loading}
+                    startIcon={loading ? <CircularProgress size={18} color="inherit" /> : null}
                     sx={{ mt: 3 }}
                 >
-                    Sign In
+                    {loading ? "Signing in..." : "Sign In"}
                 </Button>
                 <Box sx={{ mt: 2, display: 'flex', justifyContent: 'center' }}>
                     <Typography variant="body2">

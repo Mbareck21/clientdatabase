@@ -1,5 +1,5 @@
 import { styled } from '@mui/material/styles';
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 function CustomNoRowsOverlay() {
 
@@ -69,7 +69,12 @@ function CustomNoRowsOverlay() {
                     </g>
                 </g>
             </svg>
-            <Box sx={{ mt: 1 }}>...Loading Data</Box>
+            <Box sx={{ mt: 1, textAlign: 'center' }}>
+                <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>No clients yet</Typography>
+                <Typography variant="body2" color="text.secondary">
+                    Add your first client to get started.
+                </Typography>
+            </Box>
         </StyledGridOverlay>
     );
 }

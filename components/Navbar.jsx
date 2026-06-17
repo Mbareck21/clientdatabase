@@ -1,36 +1,91 @@
 'use client';
 
 import Link from 'next/link';
-import { AppBar, Toolbar, Button, Box, Chip, Avatar } from '@mui/material';
-import { signOut } from 'next-auth/react';
-import useSessionState from './useSessionState'
+import { usePathname } from 'next/navigation';
+import {
+    AppBar,
+    Toolbar,
+    Button,
+    Box,
+    Chip,
+    Avatar,
+    Typography,
+} from '@mui/material';
+import GavelIcon from '@mui/icons-material/Gavel';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { signOut, useSession } from 'next-auth/react';
 
 export default function Navbar() {
-    const session = useSessionState();
+    const { data: session, status } = useSession();
+    const pathname = usePathname();
+    const user = session?.user;
+
+    const navButtonSx = (href) => ({
+        color: 'common.white',
+        px: 2,
+        borderRadius: 2,
+        fontWeight: pathname === href ? 700 : 500,
+        bgcolor: pathname === href ? 'rgba(255,255,255,0.16)' : 'transparent',
+        '&:hover': { bgcolor: 'rgba(255,255,255,0.10)' },
+    });
 
     return (
-        <AppBar position="fixed" sx={{ bgcolor: '#39393a', color: 'primary.contrastText' }}>
-            <Toolbar variant="regular">
-                <Box sx={{ flexGrow: 1 }}>
-                    <Link href="/" passHref>
-                        <Button sx={{ color: 'primary.contrastText', bgcolor: 'primary.dark' }}>Home</Button>
-                    </Link>
-                    <Link href="/dashboard" passHref>
-                        <Button sx={{ color: 'primary.contrastText' }}>Dashboard</Button>
-                    </Link>
+        <AppBar
+            position="fixed"
+            elevation={0}
+            sx={{ bgcolor: 'appbar.main', borderBottom: '1px solid rgba(255,255,255,0.08)' }}
+        >
+            <Toolbar variant="regular" sx={{ gap: 1 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mr: 2 }}>
+                    <GavelIcon fontSize="small" sx={{ color: 'common.white' }} />
+                    <Typography
+                        variant="h6"
+                        component={Link}
+                        href="/"
+                        sx={{
+                            color: 'common.white',
+                            textDecoration: 'none',
+                            fontWeight: 700,
+                            letterSpacing: 0.2,
+                            whiteSpace: 'nowrap',
+                        }}
+                    >
+                        Case Manager
+                    </Typography>
                 </Box>
-                {session?.user?.name && <Box sx={{ flexGrow: 1 }}>
-                    <Chip avatar={<Avatar>{session?.user?.name && session.user.name[0]}</Avatar>} label={session?.user?.name && session.user.name + ' connected'} color="info" variant="outlined" />
+
+                <Box sx={{ display: 'flex', gap: 0.5, flexGrow: 1 }}>
+                    <Button component={Link} href="/" sx={navButtonSx('/')}>Home</Button>
+                    <Button component={Link} href="/dashboard" sx={navButtonSx('/dashboard')}>Dashboard</Button>
                 </Box>
-                }
-                {session?.user?.name ? (
-                    <Button sx={{ color: 'white', bgcolor: 'red' }} onClick={() => signOut({ callbackUrl: '/' })}>
+
+                {user?.name && (
+                    <Chip
+                        avatar={<Avatar>{user.name[0]?.toUpperCase()}</Avatar>}
+                        label={user.name}
+                        variant="outlined"
+                        sx={{
+                            color: 'common.white',
+                            borderColor: 'rgba(255,255,255,0.4)',
+                            mr: 1,
+                            '& .MuiChip-avatar': { color: 'common.white' },
+                        }}
+                    />
+                )}
+
+                {status === 'authenticated' ? (
+                    <Button
+                        variant="contained"
+                        color="error"
+                        startIcon={<LogoutIcon />}
+                        onClick={() => signOut({ callbackUrl: '/' })}
+                    >
                         Logout
                     </Button>
                 ) : (
-                    <Link href="/register" passHref>
-                        <Button sx={{ color: 'primary.contrastText', bgcolor: 'secondary.dark' }}>Register</Button>
-                    </Link>
+                    <Button component={Link} href="/register" variant="contained" color="primary">
+                        Register
+                    </Button>
                 )}
             </Toolbar>
         </AppBar>

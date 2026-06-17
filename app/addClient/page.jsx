@@ -4,11 +4,33 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { useRouter } from "next/navigation";
-import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
-import Button from '@mui/material/Button';
-import { Box, Stack } from '@mui/material/';
+import {
+	Stack,
+	Grid,
+	Paper,
+	Container,
+	Typography,
+	Divider,
+	TextField,
+	MenuItem,
+	Button,
+	CircularProgress,
+} from '@mui/material';
 
+const caseTypes = ["Green Card", "Asylum", "EAD", "EAD Renewal", "CAM", "Citizenship Cert", "P-3", "I-730", "CAM-Reparole"];
+
+function SectionTitle({ children }) {
+	return (
+		<>
+			<Grid item xs={12}>
+				<Typography variant="subtitle1" sx={{ fontWeight: 700, color: 'text.primary' }}>
+					{children}
+				</Typography>
+				<Divider sx={{ mt: 1 }} />
+			</Grid>
+		</>
+	);
+}
 
 export default function AddClientForm() {
 	const [formData, setFormData] = useState({
@@ -29,236 +51,143 @@ export default function AddClientForm() {
 		denialDate: "",
 		caseClosingDate: "",
 	});
-
-	const caseTypes = ["Green Card", "Asylum", "EAD", "EAD Renewal", "CAM", "Citizenship Cert", "P-3", "I-730", "CAM-Reparole"];
-
+	const [loading, setLoading] = useState(false);
 
 	const router = useRouter();
+
+	const setField = (field) => (e) => setFormData((prev) => ({ ...prev, [field]: e.target.value }));
+	const setDate = (field) => (newValue) => setFormData((prev) => ({ ...prev, [field]: newValue }));
+
 	const handleSubmit = async (event) => {
 		event.preventDefault();
+		setLoading(true);
 		const newClient = { ...formData, notes: formData.notes.content !== "" ? [formData.notes] : [] };
 
 		try {
 			const res = await fetch("/api/clients", {
 				method: "POST",
-				headers: {
-					"Content-type": "application/json",
-				},
+				headers: { "Content-type": "application/json" },
 				body: JSON.stringify(newClient),
 			});
 			if (!res.ok) {
 				throw new Error("Failed to create client information");
 			}
-			router.push("/");
+			router.push("/dashboard");
 		} catch (error) {
-			console.log(error);
+			console.error(error);
+		} finally {
+			setLoading(false);
 		}
 	};
+
 	const handleCancel = (e) => {
 		e.preventDefault();
 		router.push("/dashboard");
-	}
+	};
+
 	return (
+		<Container maxWidth="md" sx={{ py: 2 }}>
+			<Paper elevation={2} sx={{ p: { xs: 2, sm: 4 } }} component="form" onSubmit={handleSubmit} autoComplete="off">
+				<Typography variant="h5" sx={{ fontWeight: 700, mb: 3 }}>
+					Add New Client
+				</Typography>
+				<LocalizationProvider dateAdapter={AdapterDayjs}>
+					<Grid container spacing={2}>
+						<SectionTitle>Applicant Information</SectionTitle>
+						<Grid item xs={12} sm={6} md={4}>
+							<TextField fullWidth name="principalApplicant" label="Principal Applicant" required
+								value={formData.principalApplicant} onChange={setField("principalApplicant")} />
+						</Grid>
+						<Grid item xs={12} sm={6} md={4}>
+							<TextField fullWidth name="contact" label="Contact" required
+								value={formData.contact} onChange={setField("contact")} />
+						</Grid>
+						<Grid item xs={12} sm={6} md={4}>
+							<TextField fullWidth name="country" label="Country" required
+								value={formData.country} onChange={setField("country")} />
+						</Grid>
+						<Grid item xs={12} sm={6} md={4}>
+							<TextField fullWidth name="caseSize" label="Case Size" type="number" required
+								value={formData.caseSize} onChange={setField("caseSize")} />
+						</Grid>
 
-		<Box component="form"
-			sx={{
-				'& > :not(style)': { m: 1, width: '25ch' },
-			}}
-			autoComplete="off"
-			onSubmit={handleSubmit}>
-			<LocalizationProvider dateAdapter={AdapterDayjs}>
-				<TextField
-					name="principalApplicant"
-					label="Principal Applicant"
-					required
-					id="principal-Applicant"
-					value={formData.principalApplicant}
-					onChange={(e) => setFormData({
-						...formData,
-						principalApplicant: e.target.value
-					})}
-				/>
-				<TextField
-					name="contact"
-					label="Contact"
-					required
-					id="contact"
-					value={formData.contact}
-					onChange={(e) => setFormData({
-						...formData,
-						contact: e.target.value
-					})}
-				/>
-				<TextField
-					name="caseSize"
-					label="Case Size"
-					type="number"
-					id="case-Size"
-					required
-					value={formData.caseSize}
-					onChange={(e) => setFormData({
-						...formData,
-						caseSize: e.target.value
-					})}
-				/>
-				<TextField
-					name="country"
-					label="Country"
-					required
-					value={formData.country}
-					onChange={(e) => setFormData({
-						...formData,
-						country: e.target.value
-					})}
-				/>
+						<SectionTitle>Case Details</SectionTitle>
+						<Grid item xs={12} sm={6} md={4}>
+							<TextField select fullWidth name="caseType" label="Case Type" required
+								value={formData.caseType} onChange={setField("caseType")}>
+								{caseTypes.map((option) => (
+									<MenuItem key={option} value={option}>{option}</MenuItem>
+								))}
+							</TextField>
+						</Grid>
+						<Grid item xs={12} sm={6} md={4}>
+							<TextField select fullWidth name="pendingCase" label="Pending?"
+								value={formData.pendingCase} onChange={setField("pendingCase")}>
+								<MenuItem value="yes">Yes</MenuItem>
+								<MenuItem value="no">No</MenuItem>
+							</TextField>
+						</Grid>
+						<Grid item xs={12} sm={6} md={4}>
+							<TextField fullWidth name="receipt" label="Receipt"
+								value={formData.receipt} onChange={setField("receipt")} />
+						</Grid>
+						<Grid item xs={12} sm={6} md={4}>
+							<TextField fullWidth name="caseStatus" label="Case Status"
+								value={formData.caseStatus} onChange={setField("caseStatus")} />
+						</Grid>
+						<Grid item xs={12} sm={6} md={4}>
+							<TextField fullWidth name="lawyer" label="Lawyer"
+								value={formData.lawyer} onChange={setField("lawyer")} />
+						</Grid>
 
-				<TextField
-					select
-					label="Pending ?"
-					name="pendingCase"
-					type="boolean"
+						<SectionTitle>Key Dates</SectionTitle>
+						<Grid item xs={12} sm={6} md={4}>
+							<DatePicker label="Application Date" slotProps={{ textField: { fullWidth: true } }}
+								value={formData.applicationDate || null} onChange={setDate("applicationDate")} />
+						</Grid>
+						<Grid item xs={12} sm={6} md={4}>
+							<DatePicker label="Interview Date" slotProps={{ textField: { fullWidth: true } }}
+								value={formData.interviewDate || null} onChange={setDate("interviewDate")} />
+						</Grid>
+						<Grid item xs={12} sm={6} md={4}>
+							<DatePicker label="Biometrics Date" slotProps={{ textField: { fullWidth: true } }}
+								value={formData.biometricsDate || null} onChange={setDate("biometricsDate")} />
+						</Grid>
+						<Grid item xs={12} sm={6} md={4}>
+							<DatePicker label="Approval Date" slotProps={{ textField: { fullWidth: true } }}
+								value={formData.approvalDate || null} onChange={setDate("approvalDate")} />
+						</Grid>
+						<Grid item xs={12} sm={6} md={4}>
+							<DatePicker label="Denial Date" slotProps={{ textField: { fullWidth: true } }}
+								value={formData.denialDate || null} onChange={setDate("denialDate")} />
+						</Grid>
+						<Grid item xs={12} sm={6} md={4}>
+							<DatePicker label="Case Closing Date" slotProps={{ textField: { fullWidth: true } }}
+								value={formData.caseClosingDate || null} onChange={setDate("caseClosingDate")} />
+						</Grid>
 
-					value={formData.pendingCase}
-					onChange={(e) => setFormData({
-						...formData,
-						pendingCase: e.target.value
-					})}
-				>
-					<MenuItem value="yes">Yes</MenuItem>
-					<MenuItem value="no">No</MenuItem>
-				</TextField>
+						<SectionTitle>Notes</SectionTitle>
+						<Grid item xs={12}>
+							<TextField fullWidth name="notes" label="Notes" multiline minRows={3}
+								value={formData.notes.content}
+								onChange={(e) => setFormData((prev) => ({
+									...prev,
+									notes: { content: e.target.value, date: e.target.value ? new Date() : "" },
+								}))} />
+						</Grid>
+					</Grid>
 
-				<DatePicker
-					label="Application Date"
-					type="date"
-					id="application-Date"
-					value={formData.applicationDate}
-					onChange={(newValue) => setFormData({
-						...formData,
-						applicationDate: newValue
-					})}
-				/>
-				<TextField
-					select
-					label="Case Type"
-					name="caseType"
-					required
-					id="case-Type"
-					value={formData.caseType}
-					onChange={(e) => setFormData({
-						...formData,
-						caseType: e.target.value
-					})}
-				>
-					{caseTypes.map((option) => (
-						<MenuItem key={option} value={option}>
-							{option}
-						</MenuItem>
-					))}
-				</TextField>
-				<TextField
-					name="receipt"
-					label="Receipt"
-					id="receipt"
-					value={formData.receipt}
-					onChange={(e) => setFormData({
-						...formData,
-						receipt: e.target.value
-					})}
-				/>
-				<TextField
-					name="caseStatus"
-					label="Case Status"
-					id="case-Status"
-					value={formData.caseStatus}
-					onChange={(e) => setFormData({
-						...formData,
-						caseStatus: e.target.value
-					})}
-				/>
-				<TextField
-					name="lawyer"
-					label="Lawyer"
-					id="lawyer"
-					value={formData.lawyer}
-					onChange={(e) => setFormData({
-						...formData,
-						lawyer: e.target.value
-					})}
-				/>
-				<TextField
-					name="notes"
-					label="Notes"
-					multiline
-					id="case-notes"
-					value={formData.notes.content}
-					onChange={(e) =>
-						setFormData({
-							...formData,
-							notes: { content: e.target.value && e.target.value, date: e.target.value && new Date() },
-						})
-					}
-				/>
-				<DatePicker
-					label="Interview Date"
-					type="date"
-					id="interview-Date"
-					value={formData.interviewDate}
-					onChange={(newValue) => setFormData({
-						...formData,
-						interviewDate: newValue
-					})}
-				/>
-				<DatePicker
-					label="Biometrics Date"
-					id="biometrics-Date"
-					type="date"
-					value={formData.biometricsDate}
-					onChange={(newValue) => setFormData({
-						...formData,
-						biometricsDate: newValue
-					})}
-				/>
-				<DatePicker
-					label="Approval Date"
-					id="approval-Date"
-					type="date"
-					value={formData.approvalDate || ""}
-					onChange={(newValue) => setFormData({
-						...formData,
-						approvalDate: newValue
-					})}
-				/>
-				<DatePicker
-					label="denialDate"
-					id="denial-Date"
-					name="denialDate"
-					value={formData.denialDate || ""}
-					onChange={(newValue) => setFormData({
-						...formData,
-						denialDate: newValue
-					})}
-				/>
-				<DatePicker
-					label="caseClosingDate"
-					id="case-Closing-Date"
-					name="caseClosingDate"
-					value={formData.caseClosingDate || ""}
-					onChange={(newValue) => setFormData({
-						...formData,
-						caseClosingDate: newValue
-					})}
-				/>
-				<Stack direction="row" spacing={2} justifyContent="flex-end">
-
-					<Button type="submit" variant="contained" color="primary" >
-						Submit
-					</Button>
-					<Button variant="contained" color="secondary" onClick={handleCancel}>
-						Cancel
-					</Button>
-				</Stack>
-			</LocalizationProvider>
-		</Box>
+					<Stack direction="row" spacing={2} justifyContent="flex-end" sx={{ mt: 4 }}>
+						<Button variant="outlined" color="inherit" onClick={handleCancel} disabled={loading}>
+							Cancel
+						</Button>
+						<Button type="submit" variant="contained" color="primary" disabled={loading}
+							startIcon={loading ? <CircularProgress size={18} color="inherit" /> : null}>
+							{loading ? "Saving..." : "Add Client"}
+						</Button>
+					</Stack>
+				</LocalizationProvider>
+			</Paper>
+		</Container>
 	);
 }

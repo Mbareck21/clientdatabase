@@ -18,9 +18,9 @@ export default function getColumns() {
 	const helperFunction = (status) => {
 		switch (status) {
 			case "Denied":
-				return <WarningIcon fontSize="small" color="danger" />
+				return <WarningIcon fontSize="small" color="error" />
 			case "Approved":
-				return <DoneAllIcon fontSize="small" color="#ccd5ae" />
+				return <DoneAllIcon fontSize="small" color="success" />
 			case "Pending":
 				return <PendingIcon fontSize="small" color="warning" />
 			case "Applied":
@@ -136,7 +136,7 @@ export default function getColumns() {
 					color = "#fb5607"
 				}
 
-				return <Chip icon={helperFunction(params.value)} label={params.value} sx={{ width: 100, color: { color } }} />
+				return <Chip icon={helperFunction(params.value)} label={params.value} sx={{ width: 100, color }} />
 			}
 		},
 		{
