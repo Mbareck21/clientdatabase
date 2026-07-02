@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 import Navbar from "../components/Navbar";
 import { AuthProvider } from "./Providers";
 import ThemeRegistry from "./ThemeRegistry";
-import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 
 export const metadata = {
 	title: "Clients Database",

@@ -1,43 +1,47 @@
 {
-  "name": "mongoclientdb",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@emotion/cache": "^11.11.0",
-    "@emotion/react": "^11.11.1",
-    "@emotion/styled": "^11.11.0",
-    "@fontsource/roboto": "^5.0.8",
-    "@mui/icons-material": "^5.15.4",
-    "@mui/lab": "^5.0.0-alpha.147",
-    "@mui/material": "^5.14.11",
-    "@mui/material-nextjs": "^5.15.3",
-    "@mui/x-data-grid": "^6.16.0",
-    "@mui/x-data-grid-generator": "^6.16.0",
-    "@mui/x-date-pickers": "^6.16.0",
-    "bcryptjs": "^2.4.3",
-    "clsx": "^2.1.0",
-    "dayjs": "^1.11.10",
-    "eslint-config-prettier": "^9.1.0",
-    "jsonwebtoken": "^9.0.2",
-    "mongodb": "^6.1.0",
-    "mongoose": "^7.8.7",
-    "next": "latest",
-    "next-auth": "^4.24.5",
-    "react": "latest",
-    "react-dom": "latest",
-    "swr": "^2.2.4"
-  },
-  "devDependencies": {
-    "autoprefixer": "latest",
-    "eslint": "latest",
-    "eslint-config-next": "latest",
-    "postcss": "latest",
-    "prettier": "^3.0.3"
-  }
+	"name": "mongoclientdb",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next lint"
+	},
+	"dependencies": {
+		"@emotion/cache": "^11.11.0",
+		"@emotion/react": "^11.11.1",
+		"@emotion/styled": "^11.11.0",
+		"@fontsource/roboto": "^5.0.8",
+		"@mui/icons-material": "^5.18.0",
+		"@mui/material": "^5.18.0",
+		"@mui/material-nextjs": "^7.3.10",
+		"@mui/x-data-grid": "^7.29.13",
+		"@mui/x-date-pickers": "^7.29.4",
+		"bcryptjs": "^2.4.3",
+		"clsx": "^2.1.0",
+		"dayjs": "^1.11.10",
+		"eslint-config-prettier": "^9.1.0",
+		"jsonwebtoken": "^9.0.2",
+		"mongodb": "^6.1.0",
+		"mongoose": "^7.8.10",
+		"next": "^15.5.16",
+		"next-auth": "^4.24.14",
+		"react": "^19.2.7",
+		"react-dom": "^19.2.7",
+		"swr": "^2.4.2"
+	},
+	"devDependencies": {
+		"autoprefixer": "latest",
+		"eslint": "^8.57.1",
+		"eslint-config-next": "^15.5.16",
+		"postcss": "^8.5.16",
+		"prettier": "^3.0.3"
+	},
+	"overrides": {
+		"next-auth": {
+			"uuid": "^11.1.1"
+		},
+		"postcss": "$postcss"
+	}
 }

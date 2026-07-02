@@ -22,7 +22,7 @@ const getClientById = async (id) => {
 };
 
 export default async function EditClient({ params }) {
-  const { id } = params;
+  const { id } = await params;
   const client = await getClientById(id);
 
   if (!client) {
